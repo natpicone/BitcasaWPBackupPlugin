@@ -1,0 +1,4 @@
+<?php 
+define('OAUTH_CLIENTID','0e6dc619');
+define('OAUTH_SECRET','7113854a0c01e8067f390ba81b263327');
+?>
