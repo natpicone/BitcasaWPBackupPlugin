@@ -24,12 +24,12 @@ if ($pos = strpos($v, '-'))
 ?>
 <div class="wrap" id="wpb2d">
     <div class="icon32"><img width="36px" height="36px"	 src="<?php echo $uri ?>/Images/WordPressBackupToDropbox_64.png" alt="Wordpress Backup to Dropbox Logo"></div>
-    <h2><?php _e('WordPress Backup to Dropbox', 'wpbtd'); ?></h2>
+    <h2><?php _e('WordPress Backup to Bitcasa', 'wpbtd'); ?></h2>
     <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_DROPBOX_VERSION) ?></p>
     <p>
         <?php _e(sprintf('
             <p>Gday,</p>
-            <p>WordPress Backup to Dropbox is striving to be the #1 backup solution for WordPress and, in order to do so, it needs to use the latest technologies available.</p>
+            <p>WordPress Backup to Bitcasa is striving to be the #1 backup solution for WordPress and, in order to do so, it needs to use the latest technologies available.</p>
             <p>So, unfortunately your version of PHP (%s) is below version 5.2.16 that is the minimum required version to perform a reliable and successful backup.
             It is <em>STRONGLY</em> recommended that you upgrade to PHP 5.3 or higher because, <a href="%s">as of December 2010</a>, version 5.2 is no longer supported by the PHP community.
             Or, alternatively PHP >= 5.2.16.

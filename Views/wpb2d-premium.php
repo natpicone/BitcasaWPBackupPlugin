@@ -89,8 +89,8 @@ function wpb2d_products($manager, $type, $extensions)
 <div class="wrap premium" id="wpb2d">
     <div class="icon32"><img width="36px" height="36px"
                                  src="<?php echo $uri ?>/Images/WordPressBackupToDropbox_64.png"
-                                 alt="WordPress Backup to Dropbox Logo"></div>
-    <h2><?php _e('WordPress Backup to Dropbox', 'wpbtd'); ?></h2>
+                                 alt="WordPress Backup to Bitcasa Logo"></div>
+    <h2><?php _e('WordPress Backup to Bitcasa', 'wpbtd'); ?></h2>
     <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_DROPBOX_VERSION) ?></p>
 
     <?php settings_errors(); ?>
@@ -98,7 +98,7 @@ function wpb2d_products($manager, $type, $extensions)
     <h3><?php _e('Premium Extensions', 'wpbtd'); ?></h3>
     <div>
         <p>
-            <?php _e('Welcome to Premium Extensions. Please choose an extension below to enhance WordPress Backup to Dropbox.', 'wpbtd'); ?>
+            <?php _e('Welcome to Premium Extensions. Please choose an extension below to enhance WordPress Backup to Bitcasa.', 'wpbtd'); ?>
             <?php _e('Installing a premium extension is easy:', 'wpbtd'); ?>
         </p>
         <ol class="instructions">

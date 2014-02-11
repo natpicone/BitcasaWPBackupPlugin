@@ -1,24 +1,5 @@
 <?php
 error_reporting(0);
-/**
- * This file contains the contents of the Dropbox admin options page.
- *
- * @copyright Copyright (C) 2011-2014 Awesoft Pty. Ltd. All rights reserved.
- * @author Michael De Wildt (http://www.mikeyd.com.au/)
- * @license This program is free software; you can redistribute it and/or modify
- *          it under the terms of the GNU General Public License as published by
- *          the Free Software Foundation; either version 2 of the License, or
- *          (at your option) any later version.
- *
- *          This program is distributed in the hope that it will be useful,
- *          but WITHOUT ANY WARRANTY; without even the implied warranty of
- *          MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *          GNU General Public License for more details.
- *
- *          You should have received a copy of the GNU General Public License
- *          along with this program; if not, write to the Free Software
- *          Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA.
- */
 try {
     if ($errors = get_option('wpb2d-init-errors')) {
         delete_option('wpb2d-init-errors');
@@ -108,7 +89,7 @@ try {
 </style>
 
 <script src="<?php echo $uri ?>/JQueryFileTree/jqueryFileTree.js" type="text/javascript" language="javascript"></script>
-<script src="<?php echo $uri ?>/wp-backup-to-dropbox.js" type="text/javascript" language="javascript"></script>
+<script src="<?php echo $uri ?>/wp-backup-to-bitcasa.js" type="text/javascript" language="javascript"></script>
 <script type="text/javascript" language="javascript">
     jQuery(document).ready(function ($) {
         $('#frequency').change(function() {
@@ -203,7 +184,7 @@ $bitcasa_access_token=$query[0]->value;
     ?>
     <h3><?php _e('Bitcasa Account Details', 'wpbtd'); ?></h3>
     <form id="backup_to_dropbox_options" name="backup_to_dropbox_options"
-          action="admin.php?page=backup-to-dropbox" method="post">
+          action="admin.php?page=backup-to-bitcasa" method="post">
 		  
 		  <?php 
 		  $bitcasa_user_info='https://developer.api.bitcasa.com/v1/user/profile?access_token='.$bitcasa_access_token.'';
@@ -416,7 +397,7 @@ $bitcasa_access_token=$query[0]->value;
   
 	 
 	 <div class="new_class_a">
-<a style="color:#FFFFFF;text-decoration:none;" href="https://developer.api.bitcasa.com/v1/oauth2/authenticate?client_id=<?php echo OAUTH_CLIENTID; ?>&redirect=http:// <?php echo $_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF']; ?>?page=backup-to-dropbox-monitor/" target="_blank" > Authorised</a>
+<a style="color:#FFFFFF;text-decoration:none;" href="https://developer.api.bitcasa.com/v1/oauth2/authenticate?client_id=<?php echo OAUTH_CLIENTID; ?>&redirect=http:// <?php echo $_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF']; ?>?page=backup-to-bitcasa-monitor/" target="_blank" > Authorised</a>
 	 </div>
  
         <?php
@@ -425,7 +406,7 @@ $bitcasa_access_token=$query[0]->value;
 } catch (Exception $e) {
     echo '<h3>Error</h3>';
     echo '<p>' . __('There was a fatal error loading WordPress Backup to Bitcasa. Please fix the problems listed and reload the page.', 'wpbtd') . '</h3>';
-    echo '<p>' . __('If the problem persists please re-install WordPress Backup to Dropbox.', 'wpbtd') . '</h3>';
+    echo '<p>' . __('If the problem persists please re-install WordPress Backup to Bitcasa.', 'wpbtd') . '</h3>';
     echo '<p><strong>' . __('Error message:') . '</strong> ' . $e->getMessage() . '</p>';
 
     if ($dropbox)

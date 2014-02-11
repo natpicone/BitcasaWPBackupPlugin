@@ -216,7 +216,7 @@ class WPB2D_BackupController
     public static function create_dump_dir()
     {
         $dump_dir = WPB2D_Factory::get('config')->get_backup_dir();
-        $error_message  = sprintf(__("WordPress Backup to Dropbox requires write access to '%s', please ensure it exists and has write permissions.", 'wpbtd'), $dump_dir);
+        $error_message  = sprintf(__("WordPress Backup to Bitcasa requires write access to '%s', please ensure it exists and has write permissions.", 'wpbtd'), $dump_dir);
 
         if (!file_exists($dump_dir)) {
             //It really pains me to use the error suppressor here but PHP error handling sucks :-(

@@ -123,7 +123,7 @@ class WPB2D_DatabaseBackup
 
         $blog_time = strtotime(current_time('mysql'));
 
-        $this->write_to_temp("-- WordPress Backup to Dropbox SQL Dump\n");
+        $this->write_to_temp("-- WordPress Backup to Bitcasa SQL Dump\n");
         $this->write_to_temp("-- Version " . BACKUP_TO_DROPBOX_VERSION . "\n");
         $this->write_to_temp("-- http://wpb2d.com\n");
         $this->write_to_temp("-- Generation Time: " . date("F j, Y", $blog_time) . " at " . date("H:i", $blog_time) . "\n\n");

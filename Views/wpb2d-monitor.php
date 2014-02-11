@@ -21,7 +21,7 @@ global $wpdb;
 $table_name_bitcasa = $wpdb->prefix . "wpb2d_options";
 $wpdb->query("INSERT INTO $table_name_bitcasa (name, value) VALUES('bitcasa_access_token','".$a."')");
 //$re_dir = site_url( 'wp-admin/admin.php?page=backup-to-dropbox&access_token='.$a );
-$re_dir = site_url( 'wp-admin/admin.php?page=backup-to-dropbox' );
+$re_dir = site_url( 'wp-admin/admin.php?page=backup-to-bitcasa' );
 print<<<EOM
 	 <script>
 		window.location.href = "$re_dir";

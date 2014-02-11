@@ -1,43 +1,19 @@
-<?php
-/**
- * This file contains the contents of the Dropbox admin monitor page.
- *
- * @copyright Copyright (C) 2011-2014 Awesoft Pty. Ltd. All rights reserved.
- * @author Michael De Wildt (http://www.mikeyd.com.au/)
- * @license This program is free software; you can redistribute it and/or modify
- *          it under the terms of the GNU General Public License as published by
- *          the Free Software Foundation; either version 2 of the License, or
- *          (at your option) any later version.
- *
- *          This program is distributed in the hope that it will be useful,
- *          but WITHOUT ANY WARRANTY; without even the implied warranty of
- *          MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *          GNU General Public License for more details.
- *
- *          You should have received a copy of the GNU General Public License
- *          along with this program; if not, write to the Free Software
- *          Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA.
- */
-$config = WPB2D_Factory::get('config');
-$backup = new WPB2D_BackupController();
  
-global $wpdb;
-$table_name_bitcasa = $wpdb->prefix . "wpb2d_options";
-$sql = "SELECT * from $table_name_bitcasa where name='bitcasa_access_token'";
-$query = $wpdb->get_results($sql);
-
- 
-  $alldatabase_table="SHOW TABLES FROM $wpdb->dbname";
- $query_databasetable_name = $wpdb->get_results($alldatabase_table);
- 
- 
-$all_file_name = $wpdb->prefix . "wpb2d_excluded_files";
-$sql_all_filename = "SELECT * from $all_file_name ";
-$query_all_file = $wpdb->get_results($sql_all_filename);
-
- 
-
-$bitcasa_access_token=$query[0]->value;
+	
+	<?php
+				$config = WPB2D_Factory::get('config');
+				$backup = new WPB2D_BackupController();
+				 
+				global $wpdb;
+				$table_name_bitcasa = $wpdb->prefix . "wpb2d_options";
+				$sql = "SELECT * from $table_name_bitcasa where name='bitcasa_access_token'";
+				$query = $wpdb->get_results($sql);
+				$alldatabase_table="SHOW TABLES FROM $wpdb->dbname";
+				$query_databasetable_name = $wpdb->get_results($alldatabase_table);
+				$all_file_name = $wpdb->prefix . "wpb2d_excluded_files";
+				$sql_all_filename = "SELECT * from $all_file_name ";
+				$query_all_file = $wpdb->get_results($sql_all_filename);
+				$bitcasa_access_token=$query[0]->value;
  if (!empty($bitcasa_access_token)) {
  		
 		
@@ -107,7 +83,8 @@ $bitcasa_access_token=$query[0]->value;
 					 
 					 
 					 
-					   ////////////////////For The Database Upload //////////////////////////
+					 
+					 	   ////////////////////For The Database Upload //////////////////////////
 								
 								
 								$path    = '/home/demo/public_html/bitcasa_jonchang/wp-content/backups';
@@ -132,6 +109,8 @@ $bitcasa_access_token=$query[0]->value;
 								
 								
 								///////////////////End Database upload/////////////////////////
+					 
+					 
 					  
 					 
 					 
@@ -157,19 +136,54 @@ $bitcasa_access_token=$query[0]->value;
 								
 								} else {
 								
-											$folder_array=explode("/",$result_bitcasa->file);
-											$folder_name=end($folder_array);
-											$request_url = 'https://developer.api.bitcasa.com/v1/folders'.$bacup_path.'/?access_token='.$bitcasa_access_token.'';
-											$post_params = array('folder_name' => $folder_name);
-												
-												$ch = curl_init();
-									curl_setopt($ch, CURLOPT_URL, $request_url);
-									curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-									curl_setopt($ch, CURLOPT_POST, true);
-									curl_setopt($ch, CURLOPT_POSTFIELDS, $post_params);
-									$result = curl_exec($ch);
-									
+								$folder_array=explode("/",$result_bitcasa->file);
+								$folder_name=end($folder_array);
+								$request_url = 'https://developer.api.bitcasa.com/v1/folders'.$bacup_path.'/?access_token='.$bitcasa_access_token.'';
+								$post_params = array('folder_name' => $folder_name);
+											
+								$ch = curl_init();
+								curl_setopt($ch, CURLOPT_URL, $request_url);
+								curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+								curl_setopt($ch, CURLOPT_POST, true);
+								curl_setopt($ch, CURLOPT_POSTFIELDS, $post_params);
+								$result = curl_exec($ch);
+ 								$response_new = json_decode($result, true);
+								//echo "<pre>";
+								//print_r($response_new['result']['items']['0']['path']);
+								$newpa=$response_new['result']['items']['0']['path'];
+								//exit;
+								//die();
 							 
+								curl_close($ch); 
+												
+						      if(!empty($response_new)) {
+												
+							 
+								
+								foreach(glob('.'.$result_bitcasa->file.'/*.*') as $filename_up){
+  										 
+								$request_url = 'https://developer.api.bitcasa.com/v1/files'.$newpa.'/?access_token='.$bitcasa_access_token.'';
+								$post_params['name'] = urlencode('Test User');
+								$post_params['file'] = '@'.$result_bitcasa->file."/".$filename_up;
+ 							    $post_params['submit'] = urlencode('submit');
+								$ch = curl_init();
+								curl_setopt($ch, CURLOPT_URL, $request_url);
+								curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+								curl_setopt($ch, CURLOPT_POST, true);
+								curl_setopt($ch, CURLOPT_POSTFIELDS, $post_params);
+								$result = curl_exec($ch);
+								//$response_new = json_decode($result, true);
+								curl_close($ch); 
+										 
+									
+								}
+												
+								
+								
+												
+												
+							}								
+								
 								
 								}
 								
@@ -257,11 +271,11 @@ $bitcasa_access_token=$query[0]->value;
 				   
 				   ?>
 				   
-				     <li> <?php echo $all_tablename->Tables_in_bitcasa_jonchang; ?> .. uploaded..</li>
+				     <li>Database table  " <?php echo $all_tablename->Tables_in_bitcasa_jonchang; ?> " has been uploaded..</li>
 				   
 				   <?php } 
 				   ?>
-				
+		
 				
 				 <?php 
 				   foreach($query_all_file as $all_filename) {
@@ -270,7 +284,7 @@ $bitcasa_access_token=$query[0]->value;
 				   		 
 				   ?>
 				   
-				     <li> <?php echo end($ar_file_name); ?>  .. Has Been Uploaded..</li>
+				     		<li><?php echo end($ar_file_name); ?>  .. Has Been Uploaded..</li>
 				   
 				   <?php } 
 				   ?>
