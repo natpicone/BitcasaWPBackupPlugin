@@ -1,4 +1,4 @@
-=== WordPress Backup to Dropbox ===
+﻿=== WordPress Backup to Dropbox ===
 Contributors: michael.dewildt
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=38SEXDYP28CFA
 Tags: backup, dropbox
@@ -292,6 +292,8 @@ You can also install the zip [premium extension](http://wpb2d.com/premium) that 
 * Fixed issue #64 UnexpectedValueException
 * WordPress core and plugin database tables are now backed up separately
 
+
+
 = 1.1 =
 * Updated the Dropbox PHP API to fix various issues processing some files
 * Un readable directories or files are now skipped instead of causing an exception
@@ -312,3 +314,5 @@ You can also install the zip [premium extension](http://wpb2d.com/premium) that 
 == Upgrade Notice ==
 
 * After every update make sure that you check that your settings are still correct and run a test backup.
+
+
