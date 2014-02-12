@@ -1,6 +1,17 @@
- 
-	
+	<style>
+	.new_class_a{
+	 background: none repeat scroll 0 0 #2EA2CC;
+    border-color: #0074A2;
+    box-shadow: 0 1px 0 rgba(120, 200, 230, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
+    color: #FFFFFF;
+    height: auto;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    width: 100px; }
+	</style>
 	<?php
+				error_reporting(0);
 				$config = WPB2D_Factory::get('config');
 				$backup = new WPB2D_BackupController();
 				 
@@ -14,7 +25,7 @@
 				$sql_all_filename = "SELECT * from $all_file_name ";
 				$query_all_file = $wpdb->get_results($sql_all_filename);
 				$bitcasa_access_token=$query[0]->value;
- if (!empty($bitcasa_access_token)) {
+ 		if (!empty($bitcasa_access_token)) {
  		
 		
 		 $client = new BitcasaClient();
@@ -31,9 +42,29 @@
 		  
 	} else {
 	
-			echo "You Are Not Authrised.";
+			//echo "You Are Not Authrised.";
+			
+			?>
 	
-	}
+	
+    <h3><?php _e('Thank you for installing WordPress Backup to Bitcasa! Please Authrise Your Account', 'wpbtd'); ?></h3>
+    <p><?php _e('In order to use this plugin you will need to authorized it with your Bitcasa account.', 'wpbtd'); ?></p>
+    <p><?php _e('Please click the authorize button below and follow the instructions inside the pop up window.', 'wpbtd'); ?></p>
+        <?php if (array_key_exists('continue', $_POST) && !$dropbox->is_authorized()): ?>
+            <?php $dropbox->unlink_account()->init(); ?>
+            <p style="color: red"><?php _e('There was an error authorizing the plugin with your Bitcasa account. Please try again.', 'wpbtd'); ?></p>
+        <?php endif; ?>
+   
+  
+	 
+	 <div class="new_class_a">
+<a style="color:#FFFFFF;text-decoration:none;" href="https://developer.api.bitcasa.com/v1/oauth2/authenticate?client_id=<?php echo OAUTH_CLIENTID; ?>&redirect=http:// <?php echo $_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF']; ?>?page=backup-to-bitcasa-monitor/" target="_blank" > Authorised</a>
+	 </div>
+ 
+	
+	
+	
+<?php die();	}
 
 
 
@@ -109,12 +140,7 @@
 								
 								
 								///////////////////End Database upload/////////////////////////
-					 
-					 
-					  
-					 
-					 
-						foreach($query_exe as $result_bitcasa) {
+					 foreach($query_exe as $result_bitcasa) {
 					
 								if($result_bitcasa->isdir=='0') {
 								
@@ -157,32 +183,45 @@
 								curl_close($ch); 
 												
 						      if(!empty($response_new)) {
-												
-							 
-								
-								foreach(glob('.'.$result_bitcasa->file.'/*.*') as $filename_up){
-  										 
+							  
+							  
+							  
+							  if ($dir = opendir($result_bitcasa->file.'/')) {
+							$all_filles = array();
+							while (false !== ($file = readdir($dir))) {
+								if ($file != "." && $file != "..") {
+									 
+									
+			
 								$request_url = 'https://developer.api.bitcasa.com/v1/files'.$newpa.'/?access_token='.$bitcasa_access_token.'';
 								$post_params['name'] = urlencode('Test User');
-								$post_params['file'] = '@'.$result_bitcasa->file."/".$filename_up;
- 							    $post_params['submit'] = urlencode('submit');
+								$post_params['file'] = '@'.$result_bitcasa->file.'/'.$file;
+								$post_params['submit'] = urlencode('submit');
+							
 								$ch = curl_init();
 								curl_setopt($ch, CURLOPT_URL, $request_url);
 								curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 								curl_setopt($ch, CURLOPT_POST, true);
 								curl_setopt($ch, CURLOPT_POSTFIELDS, $post_params);
 								$result = curl_exec($ch);
-								//$response_new = json_decode($result, true);
+								$response_new = json_decode($result, true);
+						 
 								curl_close($ch); 
-										 
+			
 									
 								}
-												
+							}
+							closedir($dir);
+	
+	
+	
 								
 								
-												
-												
-							}								
+								
+									}
+							  
+							  
+							  }								
 								
 								
 								}
@@ -259,7 +298,7 @@
   <h3>
     <?php _e('Backup Monitor', 'wpbtd'); ?>
   </h3>
-  <div id="progress">
+  <div id="">
  	 <?php if ($config->get_option('in_progress') || isset($started)): ?>
 			
 			   <ul>
@@ -296,11 +335,9 @@
     </ul>
   <?php endif; ?>
    
-    <div class="loading">
-      <?php _e('Loading...') ?>
-    </div>
+    
   </div>
-  <form id="backup_to_dropbox_options" name="backup_to_dropbox_options" action="admin.php?page=backup-to-dropbox-bitcasa" method="post">
+  <form id="backup_to_dropbox_options" name="backup_to_dropbox_options" action="admin.php?page=backup-to-store-bitcasa" method="post">
     <?php if ($config->get_option('in_progress') || isset($started)): ?>
     <input type="submit" id="stop_backup" name="stop_backup" class="button-primary" value="<?php _e('Stop Backup', 'wpbtd'); ?>">
     <?php else: ?>

@@ -5,7 +5,7 @@ Description: Keep your valuable WordPress website, its media and database backed
 Version: 1.0
 Author: Jon
 */
-define('BACKUP_TO_DROPBOX_VERSION', '1.8.1');
+define('BACKUP_TO_DROPBOX_VERSION', '1.0.0');
 define('BACKUP_TO_DROPBOX_DATABASE_VERSION', '2');
 define('EXTENSIONS_DIR', str_replace('/', DIRECTORY_SEPARATOR, WP_CONTENT_DIR . '/plugins/wordpress-backup-to-bitcasa/Classes/Extension/'));
 define('CHUNKED_UPLOAD_THREASHOLD', 10485760); //10 MB
@@ -36,14 +36,14 @@ function wpb2d_autoload($className)
     $fileName = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
     if (preg_match('/^WPB2D/', $fileName)) {
-        $fileName = 'Classes' . str_replace('WPB2D', '', $fileName);
-    } elseif (preg_match('/^Dropbox/', $fileName)) {
-        $fileName = 'Dropbox' . DIRECTORY_SEPARATOR . $fileName;
+         $fileName = 'Classes' . str_replace('WPB2D', '', $fileName);
+    } elseif (preg_match('/^Bitca/', $fileName)) {
+         $fileName = 'Bitca' . DIRECTORY_SEPARATOR . $fileName;
     } else {
         return false;
     }
 
-    $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . $fileName;
+   $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . $fileName;
 
     if (file_exists($path)) {
         require_once $path;
@@ -81,11 +81,8 @@ function backup_to_dropbox_admin_menu()
         //add_submenu_page('backup-to-dropbox', $text, $text, 'activate_plugins', 'backup-to-dropbox-premium', 'backup_to_dropbox_premium');
     }
 	
-	
 	$text = __('Bitcasa Monitor', 'wpbtd');
-    add_submenu_page('backup-to-bitcasa', $text, $text, 'activate_plugins', 'backup-to-dropbox-bitcasa', 'backup_to_dropbox_admin_menu_contents_bitcasa');
-	
-	
+    add_submenu_page('backup-to-bitcasa', $text, $text, 'activate_plugins', 'backup-to-store-bitcasa', 'backup_to_dropbox_admin_menu_contents_bitcasa');
 	
 }
 
@@ -109,12 +106,9 @@ function backup_to_dropbox_admin_menu_contents()
 
 function backup_to_dropbox_admin_menu_contents_bitcasa()
 {
-	   include_once 'BitcasaClient.php';
+		include_once 'BitcasaClient.php';
         include 'Views/wpb2d-bitcasa-options.php';
-	
 	}
-
-
 
 
 /**
@@ -334,7 +328,6 @@ function wpb2d_init()
         error_log($e->getMessage());
     }
 }
-
 function get_sanitized_home_path()
 {
     //Needed for get_home_path() function and may not be loaded
@@ -346,7 +339,6 @@ function get_sanitized_home_path()
     if ($home_path == '/') {
         $home_path = ABSPATH;
     }
-
     return rtrim(str_replace('/', DIRECTORY_SEPARATOR, $home_path), DIRECTORY_SEPARATOR);
 }
 

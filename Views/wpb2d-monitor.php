@@ -86,7 +86,7 @@ try {
 
     <?php settings_errors(); ?>
 
-    <h3><?php _e('Premium Extensions', 'wpbtd'); ?></h3>
+    <h3><?php _e('Bitcasa Premium Extensions Coming Soon..', 'wpbtd'); ?></h3>
     <div>
         <p>
             <?php _e('Welcome to Premium Extensions. Please choose an extension below to enhance WordPress Backup to Bitcasa.', 'wpbtd'); ?>
