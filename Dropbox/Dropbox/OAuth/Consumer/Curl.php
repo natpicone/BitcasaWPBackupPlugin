@@ -1,4 +1,13 @@
 <?php
+
+/**
+* OAuth consumer using PHP cURL
+* @author Ben Tadiar <ben@handcraftedbyben.co.uk>
+* @link https://github.com/benthedesigner/dropbox
+* @package Dropbox\OAuth
+* @subpackage Consumer
+*/
+
 class Dropbox_OAuth_Consumer_Curl extends Dropbox_OAuth_Consumer_ConsumerAbstract
 {
     /**

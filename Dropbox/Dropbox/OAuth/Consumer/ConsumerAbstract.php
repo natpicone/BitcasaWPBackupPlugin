@@ -1,4 +1,13 @@
 <?php
+
+/**
+* Abstract OAuth consumer
+* @author Ben Tadiar <ben@handcraftedbyben.co.uk>
+* @link https://github.com/benthedesigner/dropbox
+* @package Dropbox\OAuth
+* @subpackage Consumer
+*/
+
 abstract class Dropbox_OAuth_Consumer_ConsumerAbstract
 {
     // Dropbox web endpoint

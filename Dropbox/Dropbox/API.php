@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Dropbox API base class
+ * @author Ben Tadiar <ben@handcraftedbyben.co.uk>
+ * @link https://github.com/benthedesigner/dropbox
+ * @link https://www.dropbox.com/developers
+ * @link https://status.dropbox.com Dropbox status
+ * @package Dropbox
+ */
+
 class Dropbox_API
 {
     // API Endpoints

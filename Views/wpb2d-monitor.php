@@ -86,18 +86,29 @@ try {
 
     <?php settings_errors(); ?>
 
-    <h3><?php _e('Bitcasa Premium Extensions Coming Soon..', 'wpbtd'); ?></h3>
+    <h3><?php _e('Bitcasa Premium Extensions', 'wpbtd'); ?></h3>
     <div>
         <p>
-            <?php _e('Welcome to Premium Extensions. Please choose an extension below to enhance WordPress Backup to Bitcasa.', 'wpbtd'); ?>
-            <?php _e('Installing a premium extension is easy:', 'wpbtd'); ?>
+            <?php _e('Upgrade your Bitcasa storage and store all your large media files easy sharing and access.', 'wpbtd'); ?>
+         
+		 
         </p>
-        <ol class="instructions">
-            <li><?php _e('Click Buy Now and pay using PayPal.', 'wpbtd'); ?></li>
-            <li><?php _e('Click Install Now to download and install the extension.', 'wpbtd'); ?></li>
-            <li><?php _e("That's it, options for your extension will be available in the menu on the left.", 'wpbtd'); ?></li>
-            <li><?php _e('If you manage many websites, consider the multiple site options.'); ?></li>
-        </ol>
+		 
+        
+					<div class="product-box--bundle product-box--bundle--2" style="margin-top: 35px !important;">
+            <div class="product-box__title wp-menu-name">Get 1TB of Storage</div>
+            <div class="product-box__subtitle">Upgrade your Bitcasa storage and store all your large media files easy sharing and access.</div>
+
+                             
+            
+                            <div class="product-box__button">
+                    
+                    
+                        <a href="https://www.bitcasa.com/pricing"><span class="button-primary">Buy Now</span></a>
+                    
+                </div>
+            
+                    </div>
     
     </div>
 
