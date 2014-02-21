@@ -5,8 +5,8 @@ abstract class WPB2D_Extension_Base
     const TYPE_OUTPUT = 2;
 
     protected
-        $dropbox,
-        $dropbox_path,
+        $bitcasa,
+        $bitcasa_path,
         $config
         ;
 
@@ -14,7 +14,7 @@ abstract class WPB2D_Extension_Base
 
     public function __construct()
     {
-        $this->dropbox = WPB2D_Factory::get('dropbox');
+        $this->bitcasa = WPB2D_Factory::get('bitcasa');
         $this->config  = WPB2D_Factory::get('config');
     }
 

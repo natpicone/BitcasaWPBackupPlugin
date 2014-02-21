@@ -1,5 +1,5 @@
 <?php
-class Dropbox_OAuth_Consumer_Curl extends Dropbox_OAuth_Consumer_ConsumerAbstract
+class Bitcasa_OAuth_Consumer_Curl extends Bitcasa_OAuth_Consumer_ConsumerAbstract
 {
     /**
      * Default cURL options
@@ -97,7 +97,7 @@ class Dropbox_OAuth_Consumer_Curl extends Dropbox_OAuth_Consumer_ConsumerAbstrac
 
         // Check if an error occurred and throw an Exception
         if (!empty($response['body']->error)) {
-            // Dropbox returns error messages inconsistently...
+            // bitcasa returns error messages inconsistently...
             if ($response['body']->error instanceof stdClass) {
                 $array = array_values((array) $response['body']->error);
                 $response['body']->error = $array[0];

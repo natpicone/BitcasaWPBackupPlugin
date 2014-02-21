@@ -8,7 +8,7 @@ try {
 
     $validation_errors = null;
 
-    $dropbox = WPB2D_Factory::get('dropbox');
+    $bitcasa = WPB2D_Factory::get('bitcasa');
     $config = WPB2D_Factory::get('config');
 
     $backup = new WPB2D_BackupController();
@@ -22,18 +22,18 @@ try {
 	
 	  
 	
-        check_admin_referer('backup_to_dropbox_options_save');
+        check_admin_referer('backup_to_bitcasa_options_save');
 
-        if (preg_match('/[^A-Za-z0-9-_.\/]/', $_POST['dropbox_location'])) {
+        if (preg_match('/[^A-Za-z0-9-_.\/]/', $_POST['bitcasa_location'])) {
             add_settings_error('wpb2d_options', 'invalid_subfolder', __('The sub directory must only contain alphanumeric characters.', 'wpbtd'), 'error');
 
-            $dropbox_location = $_POST['dropbox_location'];
+            $bitcasa_location = $_POST['bitcasa_location'];
             $store_in_subfolder = true;
         } else {
             $config
                 ->set_schedule($_POST['day'], $_POST['time'], $_POST['frequency'])
                 ->set_option('store_in_subfolder', $_POST['store_in_subfolder'] == "on")
-                ->set_option('dropbox_location', $_POST['dropbox_location']);
+                ->set_option('bitcasa_location', $_POST['bitcasa_location']);
 
             add_settings_error('general', 'settings_updated', __('Settings saved.'), 'updated');
         }
@@ -45,14 +45,14 @@ try {
 			$query = $wpdb->query($sql);
 			 
 		 
-		 //check_admin_referer('backup_to_dropbox_options_save');
-         //$dropbox->unlink_account()->init();
+		 //check_admin_referer('backup_to_bitcasa_options_save');
+         //$bitcasa->unlink_account()->init();
 		
 		
     } elseif (array_key_exists('clear_history', $_POST)) {
         
 		 
-		check_admin_referer('backup_to_dropbox_options_save');
+		check_admin_referer('backup_to_bitcasa_options_save');
         $config->clear_history();
     
 	
@@ -67,7 +67,7 @@ try {
     }
 
     if (!get_settings_errors('wpb2d_options')) {
-        $dropbox_location = $config->get_option('dropbox_location');
+        $bitcasa_location = $config->get_option('bitcasa_location');
         $store_in_subfolder = $config->get_option('store_in_subfolder');
     }
 
@@ -131,32 +131,30 @@ try {
 
         $('#store_in_subfolder').click(function (e) {
             if ($('#store_in_subfolder').is(':checked')) {
-                $('.dropbox_location').show('fast', function() {
-                    $('#dropbox_location').focus();
+                $('.bitcasa_location').show('fast', function() {
+                    $('#bitcasa_location').focus();
                 });
             } else {
-                $('#dropbox_location').val('');
-                $('.dropbox_location').hide();
+                $('#bitcasa_location').val('');
+                $('.bitcasa_location').hide();
             }
         });
     });
 
     /**
-     * Display the Dropbox authorize url, hide the authorize button and then show the continue button.
+     * Display the bitcasa authorize url, hide the authorize button and then show the continue button.
      * @param url
      */
-    function dropbox_authorize(url) {
+    function bitcasa_authorize(url) {
         window.open(url);
         document.getElementById('continue').style.visibility = 'visible';
         document.getElementById('authorize').style.visibility = 'hidden';
     }
 </script>
     <div class="wrap" id="wpb2d">
-    <div class="icon32"><img width="36px" height="36px"
-                             src="<?php echo $uri ?>/Images/WordPressBackupToDropbox_64.png"
-                             alt="Wordpress Backup to Dropbox Logo"></div>
+     
 <h2><?php _e('WordPress Backup to Bitcasa', 'wpbtd'); ?></h2>
-<p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_DROPBOX_VERSION) ?></p>
+<p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_BITCASA_VERSION) ?></p>
 
     <?php settings_errors(); ?>
 <?php
@@ -183,7 +181,7 @@ $bitcasa_access_token=$query[0]->value;
 		 
     ?>
     <h3><?php _e('Bitcasa Account Details', 'wpbtd'); ?></h3>
-    <form id="backup_to_dropbox_options" name="backup_to_dropbox_options"
+    <form id="backup_to_bitcasa_options" name="backup_to_bitcasa_options"
           action="admin.php?page=backup-to-bitcasa" method="post">
 		  
 		  <?php 
@@ -311,7 +309,7 @@ $bitcasa_access_token=$query[0]->value;
                     <option value="23:00" <?php echo $time == '23:00' ? ' selected="selected"' : "" ?>>23:00
                     </option>
                 </select>
-                <span class="description"><?php _e('The day and time the backup to Dropbox is to be performed.', 'wpbtd'); ?></span>
+                <span class="description"><?php _e('The day and time the backup to bitcasa is to be performed.', 'wpbtd'); ?></span>
             </td>
         </tr>
         <tr valign="top">
@@ -379,7 +377,7 @@ $bitcasa_access_token=$query[0]->value;
     <p class="submit">
         <input type="submit" id="wpb2d_save_changes" name="wpb2d_save_changes" class="button-primary" value="<?php _e('Save Changes', 'wpbtd'); ?>">
     </p>
-        <?php wp_nonce_field('backup_to_dropbox_options_save'); ?>
+        <?php wp_nonce_field('backup_to_bitcasa_options_save'); ?>
     </form>
         <?php
 
@@ -389,15 +387,15 @@ $bitcasa_access_token=$query[0]->value;
     <h3><?php _e('Thank you for installing WordPress Backup to Bitcasa!', 'wpbtd'); ?></h3>
     <p><?php _e('In order to use this plugin you will need to authorized it with your Bitcasa account.', 'wpbtd'); ?></p>
     <p><?php _e('Please click the authorize button below and follow the instructions inside the pop up window.', 'wpbtd'); ?></p>
-        <?php if (array_key_exists('continue', $_POST) && !$dropbox->is_authorized()): ?>
-            <?php $dropbox->unlink_account()->init(); ?>
+        <?php if (array_key_exists('continue', $_POST) && !$bitcasa->is_authorized()): ?>
+            <?php $bitcasa->unlink_account()->init(); ?>
             <p style="color: red"><?php _e('There was an error authorizing the plugin with your Bitcasa account. Please try again.', 'wpbtd'); ?></p>
         <?php endif; ?>
    
   
 	 
 	 <div class="new_class_a">
-<a style="color:#FFFFFF;text-decoration:none;" href="https://developer.api.bitcasa.com/v1/oauth2/authenticate?client_id=<?php echo OAUTH_CLIENTID; ?>&redirect=http:// <?php echo $_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF']; ?>?page=backup-to-bitcasa-monitor/" target="_blank" > Authorised</a>
+<a style="color:#FFFFFF;text-decoration:none;" href="https://developer.api.bitcasa.com/v1/oauth2/authenticate?client_id=<?php echo OAUTH_CLIENTID; ?>&redirect=http:// <?php echo $_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF']; ?>?page=backup-to-bitcasa-monitor/" target="_blank" > Authorize</a>
 	 </div>
  
         <?php
@@ -409,8 +407,8 @@ $bitcasa_access_token=$query[0]->value;
     echo '<p>' . __('If the problem persists please re-install WordPress Backup to Bitcasa.', 'wpbtd') . '</h3>';
     echo '<p><strong>' . __('Error message:') . '</strong> ' . $e->getMessage() . '</p>';
 
-    if ($dropbox)
-        $dropbox->unlink_account();
+    if ($bitcasa)
+        $bitcasa->unlink_account();
 }
 ?>
 </div>

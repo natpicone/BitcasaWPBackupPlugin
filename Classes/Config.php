@@ -93,9 +93,9 @@ class WPB2D_Config
             }
         }
 
-        $timestamp = wp_next_scheduled('execute_periodic_drobox_backup');
+        $timestamp = wp_next_scheduled('execute_periodic_bitcasa_backup');
         if ($timestamp) {
-            wp_unschedule_event($timestamp, 'execute_periodic_drobox_backup');
+            wp_unschedule_event($timestamp, 'execute_periodic_bitcasa_backup');
         }
 
         //This will be in the blogs timezone
@@ -104,15 +104,15 @@ class WPB2D_Config
         //Convert the selected time to that of the server
         $server_time = strtotime(date('Y-m-d H') . ':00:00') + ($scheduled_time - $blog_time);
 
-        wp_schedule_event($server_time, $frequency, 'execute_periodic_drobox_backup');
+        wp_schedule_event($server_time, $frequency, 'execute_periodic_bitcasa_backup');
 
         return $this;
     }
 
     public function get_schedule()
     {
-        $time = wp_next_scheduled('execute_periodic_drobox_backup');
-        $frequency = wp_get_schedule('execute_periodic_drobox_backup');
+        $time = wp_next_scheduled('execute_periodic_bitcasa_backup');
+        $frequency = wp_get_schedule('execute_periodic_bitcasa_backup');
         $schedule = null;
 
         if ($time && $frequency) {
@@ -140,20 +140,20 @@ class WPB2D_Config
         return explode(',', $history);
     }
 
-    public function get_dropbox_path($source, $file, $root = false)
+    public function get_bitcasa_path($source, $file, $root = false)
     {
-        $dropbox_location = null;
+        $bitcasa_location = null;
         if ($this->get_option('store_in_subfolder')){
-            $dropbox_location = $this->get_option('dropbox_location');
+            $bitcasa_location = $this->get_option('dropbox_location');
         }
 
         if ($root){
-            return $dropbox_location;
+            return $bitcasa_location;
         }
 
         $source = rtrim($source, DIRECTORY_SEPARATOR);
 
-        return ltrim(dirname(str_replace($source, $dropbox_location, $file)), DIRECTORY_SEPARATOR);
+        return ltrim(dirname(str_replace($source, $bitcasa_location, $file)), DIRECTORY_SEPARATOR);
     }
 
     public function log_finished_time()
@@ -172,8 +172,8 @@ class WPB2D_Config
 
     public function complete()
     {
-        wp_clear_scheduled_hook('monitor_dropbox_backup_hook');
-        wp_clear_scheduled_hook('run_dropbox_backup_hook');
+        wp_clear_scheduled_hook('monitor_bitcasa_backup_hook');
+        wp_clear_scheduled_hook('run_bitcasa_backup_hook');
         wp_clear_scheduled_hook('execute_instant_drobox_backup');
 
         $processed = new WPB2D_Processed_Files();

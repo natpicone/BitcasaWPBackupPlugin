@@ -2,11 +2,11 @@
 /*
 Plugin Name: WordPress Backup to Bitcasa
 Description: Keep your valuable WordPress website, its media and database backed up to Bitcasa in minutes with this sleek, easy to use plugin.
-Version: 1.0
-Author: Jon
+Version: 1.0.0
+Author: Bitcasa, Inc.
 */
-define('BACKUP_TO_DROPBOX_VERSION', '1.0.0');
-define('BACKUP_TO_DROPBOX_DATABASE_VERSION', '2');
+define('BACKUP_TO_BITCASA_VERSION', '1.0.0');
+define('BACKUP_TO_BITCASA_DATABASE_VERSION', '2');
 define('EXTENSIONS_DIR', str_replace('/', DIRECTORY_SEPARATOR, WP_CONTENT_DIR . '/plugins/wordpress-backup-to-bitcasa/Classes/Extension/'));
 define('CHUNKED_UPLOAD_THREASHOLD', 10485760); //10 MB
 define('MINUMUM_PHP_VERSION', '5.2.16');
@@ -22,7 +22,7 @@ if (function_exists('spl_autoload_register')) {
 					require_once 'Classes/Processed/DBTables.php';
 					require_once 'Classes/DatabaseBackup.php';
 					require_once 'Classes/FileList.php';
-					require_once 'Classes/DropboxFacade.php';
+					require_once 'Classes/BitcasaFacade.php';
 					require_once 'Classes/Config.php';
 					require_once 'Classes/BackupController.php';
 					require_once 'Classes/Logger.php';
@@ -58,18 +58,18 @@ function wpb2d_style()
 }
 
 /**
- * A wrapper function that adds an options page to setup Dropbox Backup
+ * A wrapper function that adds an options page to setup Bitcasa Backup
  * @return void
  */
-function backup_to_dropbox_admin_menu()
+function backup_to_bitcasa_admin_menu()
 {
    $imgUrl = rtrim(WP_PLUGIN_URL, '/') . '/wordpress-backup-to-bitcasa/Images/favicon_bitcasa.ico';
 
     $text = __('Bitcasa', 'wpbtd');
-    add_menu_page($text, $text, 'activate_plugins', 'backup-to-bitcasa', 'backup_to_dropbox_admin_menu_contents', $imgUrl, '80.0564');
+    add_menu_page($text, $text, 'activate_plugins', 'backup-to-bitcasa', 'backup_to_bitcasa_admin_menu_contents', $imgUrl, '80.0564');
 
     $text = __('Backup Settings', 'wpbtd');
-    add_submenu_page('backup-to-bitcasa', $text, $text, 'activate_plugins', 'backup-to-bitcasa', 'backup_to_dropbox_admin_menu_contents');
+    add_submenu_page('backup-to-bitcasa', $text, $text, 'activate_plugins', 'backup-to-bitcasa', 'backup_to_bitcasa_admin_menu_contents');
 
     if (version_compare(PHP_VERSION, MINUMUM_PHP_VERSION) >= 0) {
         $text = __('Account Upgrade', 'wpbtd');
@@ -78,19 +78,19 @@ function backup_to_dropbox_admin_menu()
         WPB2D_Extension_Manager::construct()->add_menu_items();
 
         $text = __('Premium Extensions', 'wpbtd');
-        //add_submenu_page('backup-to-dropbox', $text, $text, 'activate_plugins', 'backup-to-dropbox-premium', 'backup_to_dropbox_premium');
+        
     }
 	
 	$text = __('Bitcasa Monitor', 'wpbtd');
-    add_submenu_page('backup-to-bitcasa', $text, $text, 'activate_plugins', 'backup-to-store-bitcasa', 'backup_to_dropbox_admin_menu_contents_bitcasa');
+    add_submenu_page('backup-to-bitcasa', $text, $text, 'activate_plugins', 'backup-to-store-bitcasa', 'backup_to_admin_menu_contents_bitcasa');
 	
 }
 
 /**
- * A wrapper function that includes the backup to Dropbox options page
+ * A wrapper function that includes the backup to Bitcasa options page
  * @return void
  */
-function backup_to_dropbox_admin_menu_contents()
+function backup_to_bitcasa_admin_menu_contents()
 {
     
 	include_once 'BitcasaClient.php';
@@ -104,7 +104,7 @@ function backup_to_dropbox_admin_menu_contents()
 }
 
 
-function backup_to_dropbox_admin_menu_contents_bitcasa()
+function backup_to_admin_menu_contents_bitcasa()
 {
 		include_once 'BitcasaClient.php';
         include 'Views/wpb2d-bitcasa-options.php';
@@ -112,7 +112,7 @@ function backup_to_dropbox_admin_menu_contents_bitcasa()
 
 
 /**
- * A wrapper function that includes the backup to Dropbox monitor page
+ * A wrapper function that includes the backup to Bitcasa monitor page
  * @return void
  */
 function backup_to_bitcasa_monitor()
@@ -126,10 +126,10 @@ function backup_to_bitcasa_monitor()
 }
 
 /**
- * A wrapper function that includes the backup to Dropbox premium page
+ * A wrapper function that includes the backup to Bitcasa premium page
  * @return void
  */
-function backup_to_dropbox_premium()
+function backup_to_bitcasa_premium()
 {
     wp_enqueue_script('jquery-ui-core');
     wp_enqueue_script('jquery-ui-tabs');
@@ -142,7 +142,7 @@ function backup_to_dropbox_premium()
  * A wrapper function for the file tree AJAX request
  * @return void
  */
-function backup_to_dropbox_file_tree()
+function backup_to_bitcasa_file_tree()
 {
     include 'Views/wpb2d-file-tree.php';
     die();
@@ -152,7 +152,7 @@ function backup_to_dropbox_file_tree()
  * A wrapper function for the progress AJAX request
  * @return void
  */
-function backup_to_dropbox_progress()
+function backup_to_bitcasa_progress()
 {
     include 'Views/wpb2d-progress.php';
     die();
@@ -181,17 +181,17 @@ function execute_drobox_backup()
     WPB2D_Factory::get('config')->set_option('in_progress', true);
 
     if (defined('WPB2D_TEST_MODE')) {
-        run_dropbox_backup();
+        run_bitcasa_backup();
     } else {
-        wp_schedule_single_event(time(), 'run_dropbox_backup_hook');
-        wp_schedule_event(time(), 'every_min', 'monitor_dropbox_backup_hook');
+        wp_schedule_single_event(time(), 'run_bitcasa_backup_hook');
+        wp_schedule_event(time(), 'every_min', 'monitor_bitcasa_backup_hook');
     }
 }
 
 /**
  * @return void
  */
-function monitor_dropbox_backup()
+function monitor_bitcasa_backup()
 {
     $config = WPB2D_Factory::get('config');
     $mtime = filemtime(WPB2D_Factory::get('logger')->get_log_file());
@@ -201,14 +201,14 @@ function monitor_dropbox_backup()
         WPB2D_Factory::get('logger')->log(sprintf(__('There has been no backup activity for a long time. Attempting to resume the backup.' , 'wpbtd'), 5));
         $config->set_option('is_running', false);
 
-        wp_schedule_single_event(time(), 'run_dropbox_backup_hook');
+        wp_schedule_single_event(time(), 'run_bitcasa_backup_hook');
     }
 }
 
 /**
  * @return void
  */
-function run_dropbox_backup()
+function run_bitcasa_backup()
 {
     $options = WPB2D_Factory::get('config');
     if (!$options->get_option('is_running')) {
@@ -222,7 +222,7 @@ function run_dropbox_backup()
  * @param  $schedules
  * @return array
  */
-function backup_to_dropbox_cron_schedules($schedules)
+function backup_to_bitcasa_cron_schedules($schedules)
 {
     $new_schedules = array(
         'every_min' => array(
@@ -309,14 +309,14 @@ function wpb2d_install()
 
     //Only set the DB version if there are no errors
     if (empty($errors)) {
-        WPB2D_Factory::get('config')->set_option('database_version', BACKUP_TO_DROPBOX_DATABASE_VERSION);
+        WPB2D_Factory::get('config')->set_option('database_version', BACKUP_TO_BITCASA_DATABASE_VERSION);
     }
 }
 
 function wpb2d_init()
 {
     try {
-        if (WPB2D_Factory::get('config')->get_option('database_version') < BACKUP_TO_DROPBOX_DATABASE_VERSION) {
+        if (WPB2D_Factory::get('config')->get_option('database_version') < BACKUP_TO_BITCASA_DATABASE_VERSION) {
             wpb2d_install();
         }
 
@@ -343,12 +343,12 @@ function get_sanitized_home_path()
 }
 
 //More cron shedules
-add_filter('cron_schedules', 'backup_to_dropbox_cron_schedules');
+add_filter('cron_schedules', 'backup_to_bitcasa_cron_schedules');
 
 //Backup hooks
-add_action('monitor_dropbox_backup_hook', 'monitor_dropbox_backup');
-add_action('run_dropbox_backup_hook', 'run_dropbox_backup');
-add_action('execute_periodic_drobox_backup', 'execute_drobox_backup');
+add_action('monitor_bitcasa_backup_hook', 'monitor_bitcasa_backup');
+add_action('run_bitcasa_backup_hook', 'run_bitcasa_backup');
+add_action('execute_periodic_bitcasa_backup', 'execute_drobox_backup');
 add_action('execute_instant_drobox_backup', 'execute_drobox_backup');
 
 //Register database install
@@ -362,12 +362,12 @@ load_plugin_textdomain('wpbtd', false, 'wordpress-backup-to-bitcasa/Languages/')
 
 if (is_admin()) {
     //WordPress filters and actions
-    add_action('wp_ajax_file_tree', 'backup_to_dropbox_file_tree');
-    add_action('wp_ajax_progress', 'backup_to_dropbox_progress');
+    add_action('wp_ajax_file_tree', 'backup_to_bitcasa_file_tree');
+    add_action('wp_ajax_progress', 'backup_to_bitcasa_progress');
 
     if (defined('MULTISITE') && MULTISITE) {
-        add_action('network_admin_menu', 'backup_to_dropbox_admin_menu');
+        add_action('network_admin_menu', 'backup_to_bitcasa_admin_menu');
     } else {
-        add_action('admin_menu', 'backup_to_dropbox_admin_menu');
+        add_action('admin_menu', 'backup_to_bitcasa_admin_menu');
     }
 }

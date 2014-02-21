@@ -8,7 +8,7 @@ class WPB2D_DropboxFacade
     private static $instance = null;
 
     private
-        $dropbox,
+        $bitcasa,
         $request_token,
         $access_token,
         $oauth_state,

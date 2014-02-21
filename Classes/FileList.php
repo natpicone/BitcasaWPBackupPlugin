@@ -4,7 +4,7 @@ class WPB2D_FileList
     private static $ignored_patterns = array(
         '.DS_Store', 'Thumbs.db', 'desktop.ini',
         '.git', '.gitignore', '.gitmodules',
-        '.svn', '.dropbox',
+        '.svn', '.bitcasa',
         '.sass-cache',
     );
 

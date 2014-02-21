@@ -4,9 +4,9 @@ if ($pos = strpos($v, '-'))
     $v = substr($v, 0, $pos);
 ?>
 <div class="wrap" id="wpb2d">
-    <div class="icon32"><img width="36px" height="36px"	 src="<?php echo $uri ?>/Images/WordPressBackupToDropbox_64.png" alt="Wordpress Backup to Dropbox Logo"></div>
+     
     <h2><?php _e('WordPress Backup to Bitcasa', 'wpbtd'); ?></h2>
-    <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_DROPBOX_VERSION) ?></p>
+    <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_BITCASA_VERSION) ?></p>
     <p>
         <?php _e(sprintf('
             <p>Gday,</p>

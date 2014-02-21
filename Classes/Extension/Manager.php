@@ -51,7 +51,7 @@ class WPB2D_Extension_Manager
 
     public function get_install_url()
     {
-        return 'admin.php?page=backup-to-dropbox-premium';
+        return 'admin.php?page=backup-to-bitcasa-premium';
     }
 
     public function get_buy_url()
@@ -96,7 +96,7 @@ class WPB2D_Extension_Manager
             'apikey' => self::API_KEY,
             'name' => $name,
             'site' => get_site_url(),
-            'version' => BACKUP_TO_DROPBOX_VERSION,
+            'version' => BACKUP_TO_BITCASA_VERSION,
         );
 
         $download_file = download_url("{$this->get_url(true)}/download?" . http_build_query($params));
@@ -158,7 +158,7 @@ class WPB2D_Extension_Manager
             $slug = $this->get_menu_slug($obj);
             $func = $this->get_menu_func($obj);
 
-            add_submenu_page('backup-to-dropbox', $title, $title, 'activate_plugins', $slug, $func);
+            add_submenu_page('backup-to-bitcasa', $title, $title, 'activate_plugins', $slug, $func);
         }
     }
 

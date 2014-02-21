@@ -1,8 +1,8 @@
 <?php
-abstract class Dropbox_OAuth_Consumer_ConsumerAbstract
+abstract class Bitcasa_OAuth_Consumer_ConsumerAbstract
 {
-    // Dropbox web endpoint
-    const WEB_URL = 'https://www.dropbox.com/1/';
+    // Bitcasa web endpoint
+    const WEB_URL = 'https://www.bitcasa.com/1/';
 
     // OAuth flow methods
     const REQUEST_TOKEN_METHOD = 'oauth/request_token';
@@ -40,7 +40,7 @@ abstract class Dropbox_OAuth_Consumer_ConsumerAbstract
     */
     public function getRequestToken()
     {
-        $url = Dropbox_API::API_URL . self::REQUEST_TOKEN_METHOD;
+        $url = Bitcasa_API::API_URL . self::REQUEST_TOKEN_METHOD;
         $response = $this->fetch('POST', $url, '');
 
         return $this->parseTokenString($response['body']);
@@ -74,7 +74,7 @@ abstract class Dropbox_OAuth_Consumer_ConsumerAbstract
     public function getAccessToken()
     {
         // Get the signed request URL
-        $response = $this->fetch('POST', Dropbox_API::API_URL, self::ACCESS_TOKEN_METHOD);
+        $response = $this->fetch('POST', Bitcasa_API::API_URL, self::ACCESS_TOKEN_METHOD);
 
         return $this->parseTokenString($response['body']);
     }
@@ -244,7 +244,7 @@ abstract class Dropbox_OAuth_Consumer_ConsumerAbstract
 
     /**
     * Parse response parameters for a token into an object
-    * Dropbox returns tokens in the response parameters, and
+    * Bitcasa returns tokens in the response parameters, and
     * not a JSON encoded object as per other API requests
     * @link http://oauth.net/core/1.0/#response_parameters
     * @param string $response

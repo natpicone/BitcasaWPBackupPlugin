@@ -2,7 +2,7 @@
 class WPB2D_BackupController
 {
     private
-        $dropbox,
+        $bitcasa,
         $config,
         $output,
         $processed_file_count
@@ -16,18 +16,18 @@ class WPB2D_BackupController
     public function __construct($output = null)
     {
         $this->config = WPB2D_Factory::get('config');
-        $this->dropbox = WPB2D_Factory::get('dropbox');
+        $this->bitcasa = WPB2D_Factory::get('bitcasa');
         $this->output = $output ? $output : WPB2D_Extension_Manager::construct()->get_output();
     }
 
-    public function backup_path($path, $dropbox_path = null, $always_include = null)
+    public function backup_path($path, $bitcasa_path = null, $always_include = null)
     {
         if (!$this->config->get_option('in_progress')) {
             return;
         }
 
-        if (!$dropbox_path) {
-            $dropbox_path = get_sanitized_home_path();
+        if (!$bitcasa_path) {
+            $bitcasa_path = get_sanitized_home_path();
         }
 
         $file_list = WPB2D_Factory::get('fileList');
@@ -99,9 +99,9 @@ class WPB2D_BackupController
                         continue;
                     }
 
-                    if ($this->output->out($dropbox_path, $file, $processed_file)) {
+                    if ($this->output->out($bitcasa_path, $file, $processed_file)) {
                         $uploaded_files[] = array(
-                            'file' => str_replace($dropbox_path . DIRECTORY_SEPARATOR, '', WPB2D_DropboxFacade::remove_secret($file)),
+                            'file' => str_replace($bitcasa_path . DIRECTORY_SEPARATOR, '', WPB2D_BitcasaFacade::remove_secret($file)),
                             'mtime' => filemtime($file),
                         );
 

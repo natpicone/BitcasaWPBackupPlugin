@@ -18,15 +18,15 @@ class WPB2D_Extension_DefaultOutput extends WPB2D_Extension_Base
     public function out($source, $file, $processed_file = null)
     {
         if ($this->error_count > self::MAX_ERRORS)
-            throw new Exception(sprintf(__('The backup is having trouble uploading files to Dropbox, it has failed %s times and is aborting the backup.', 'wpbtd'), self::MAX_ERRORS));
+            throw new Exception(sprintf(__('The backup is having trouble uploading files to bitcasa, it has failed %s times and is aborting the backup.', 'wpbtd'), self::MAX_ERRORS));
 
-        if (!$this->dropbox)
-            throw new Exception(__("Dropbox API not set"));
+        if (!$this->bitcasa)
+            throw new Exception(__("bitcasa API not set"));
 
-        $dropbox_path = $this->config->get_dropbox_path($source, $file, $this->root);
+        $bitcasa_path = $this->config->get_bitcasa_path($source, $file, $this->root);
 
         try {
-            $directory_contents = $this->dropbox->get_directory_contents($dropbox_path);
+            $directory_contents = $this->bitcasa->get_directory_contents($bitcasa_path);
 
             if (!in_array(basename($file), $directory_contents) || filemtime($file) > $this->config->get_option('last_backup_time')) {
                 $file_size = filesize($file);
@@ -42,14 +42,14 @@ class WPB2D_Extension_DefaultOutput extends WPB2D_Extension_Base
                         round($file_size / 1048576, 1)
                     ));
 
-                    return $this->dropbox->chunk_upload_file($dropbox_path, $file, $processed_file);
+                    return $this->bitcasa->chunk_upload_file($bitcasa_path, $file, $processed_file);
                 } else {
-                    return $this->dropbox->upload_file($dropbox_path, $file);
+                    return $this->bitcasa->upload_file($bitcasa_path, $file);
                 }
             }
 
         } catch (Exception $e) {
-            WPB2D_Factory::get('logger')->log(sprintf(__("Error uploading '%s' to Dropbox: %s", 'wpbtd'), $file, strip_tags($e->getMessage())));
+            WPB2D_Factory::get('logger')->log(sprintf(__("Error uploading '%s' to bitcasa: %s", 'wpbtd'), $file, strip_tags($e->getMessage())));
             $this->error_count++;
         }
     }

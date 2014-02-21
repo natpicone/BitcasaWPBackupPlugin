@@ -18,7 +18,7 @@ if (isset($_POST['name'])) {
 
         ?><script type='text/javascript'>
             jQuery(document).ready(function ($) {
-                $('a[href$="backup-to-dropbox-premium"]').parent().before('<li><a href="admin.php?page=<?php echo $slug ?>"><?php echo $title ?></a></li>');
+                $('a[href$="backup-to-bitcasa-premium"]').parent().before('<li><a href="admin.php?page=<?php echo $slug ?>"><?php echo $title ?></a></li>');
             });
         </script><?php
     } catch (Exception $e) {
@@ -87,11 +87,9 @@ function wpb2d_products($manager, $type, $extensions)
     });
 </script>
 <div class="wrap premium" id="wpb2d">
-    <div class="icon32"><img width="36px" height="36px"
-                                 src="<?php echo $uri ?>/Images/WordPressBackupToDropbox_64.png"
-                                 alt="WordPress Backup to Bitcasa Logo"></div>
+     
     <h2><?php _e('WordPress Backup to Bitcasa', 'wpbtd'); ?></h2>
-    <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_DROPBOX_VERSION) ?></p>
+    <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_BITCASA_VERSION) ?></p>
 
     <?php settings_errors(); ?>
 

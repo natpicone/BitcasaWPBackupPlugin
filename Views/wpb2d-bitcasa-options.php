@@ -44,15 +44,15 @@
     <h3><?php _e('Thank you for installing WordPress Backup to Bitcasa! Please Authrise Your Account', 'wpbtd'); ?></h3>
     <p><?php _e('In order to use this plugin you will need to authorized it with your Bitcasa account.', 'wpbtd'); ?></p>
     <p><?php _e('Please click the authorize button below and follow the instructions inside the pop up window.', 'wpbtd'); ?></p>
-        <?php if (array_key_exists('continue', $_POST) && !$dropbox->is_authorized()): ?>
-            <?php $dropbox->unlink_account()->init(); ?>
+        <?php if (array_key_exists('continue', $_POST) && !$bitcasa->is_authorized()): ?>
+            <?php $bitcasa->unlink_account()->init(); ?>
             <p style="color: red"><?php _e('There was an error authorizing the plugin with your Bitcasa account. Please try again.', 'wpbtd'); ?></p>
         <?php endif; ?>
    
 								<!--        Authrise Link..  -->
 	 
 	 <div class="new_class_a">
-<a style="color:#FFFFFF;text-decoration:none;" href="https://developer.api.bitcasa.com/v1/oauth2/authenticate?client_id=<?php echo OAUTH_CLIENTID; ?>&redirect=http:// <?php echo $_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF']; ?>?page=backup-to-bitcasa-monitor/" target="_blank" > Authorised</a>
+<a style="color:#FFFFFF;text-decoration:none;" href="https://developer.api.bitcasa.com/v1/oauth2/authenticate?client_id=<?php echo OAUTH_CLIENTID; ?>&redirect=http:// <?php echo $_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF']; ?>?page=backup-to-bitcasa-monitor/" target="_blank" > Authorize</a>
 	 </div>
  
 	
@@ -65,7 +65,7 @@
 
       if (array_key_exists('stop_backup', $_POST)) {
     	///////////////////////////////////////////////Stop Backup code////////////////////////////
-		check_admin_referer('backup_to_dropbox_monitor_stop');
+		check_admin_referer('backup_to_bitcasa_monitor_stop');
 		$backup->stop();
 		add_settings_error('wpb2d_monitor', 'backup_stopped', __('Backup stopped.', 'wpbtd'), 'updated');
 			
@@ -76,17 +76,11 @@
 
 	 ///////////////////////////////////////////////Start backup code ///////////////////////////
 	
-    check_admin_referer('backup_to_dropbox_monitor_stop');
+    check_admin_referer('backup_to_bitcasa_monitor_stop');
     $backup->backup_now();
     $started = true;
-  
-  
-   ///////////////////////////////////////////////Start Uploading Code Comment.....  ///////////////////////////
-  
-  
-  
     
-/*	$date_new = date('m-d-Y', time());
+	$date_new = date('m-d-Y', time());
     $bid = $client->getInfiniteDrive();
      ///////////////////////////////////////////////Add " bitcasa_backup " folder on bitcasa server////////////////////////////
 	$item = $bid->add($client, "bitcasa_backup");
@@ -248,11 +242,6 @@
   
    		  
     }
-	*/
-	
-	
-	
-	 ///////////////////////////////////////////////End Uploading Code Comment.....  ///////////////////////////
  
  	?>
 <?php
@@ -295,13 +284,11 @@
 </script>
 
 <div class="wrap" id="wpb2d">
-  <div class="icon32"><img width="36px" height="36px"
-                                 src="<?php echo $uri ?>/Images/WordPressBackupToDropbox_64.png"
-                                 alt="WordPress Backup to Dropbox Logo"></div>
+   
   <h2>
     <?php _e('WordPress Backup to Bitcasa', 'wpbtd'); ?>
   </h2>
-  <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_DROPBOX_VERSION) ?></p>
+  <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_BITCASA_VERSION) ?></p>
   <?php settings_errors(); ?>
   <h3>
     <?php _e('Backup Monitor', 'wpbtd'); ?>
@@ -331,12 +318,12 @@
    
     
   </div>
-  <form id="backup_to_dropbox_options" name="backup_to_dropbox_options" action="admin.php?page=backup-to-store-bitcasa" method="post">
+  <form id="backup_to_bitcasa_options" name="backup_to_bitcasa_options" action="admin.php?page=backup-to-store-bitcasa" method="post">
     <?php if ($config->get_option('in_progress') || isset($started)): ?>
     <input type="submit" id="stop_backup" name="stop_backup" class="button-primary" value="<?php _e('Stop Backup', 'wpbtd'); ?>">
     <?php else: ?>
     <input type="submit" id="start_backup" name="start_backup" class="button-primary" value="<?php _e('Start Backup', 'wpbtd'); ?>">
     <?php endif; ?>
-    <?php wp_nonce_field('backup_to_dropbox_monitor_stop'); ?>
+    <?php wp_nonce_field('backup_to_bitcasa_monitor_stop'); ?>
   </form>
 </div>

@@ -4,7 +4,7 @@ class WPB2D_Factory
     private static
         $objectCache = array(),
         $aliases = array(
-            'dropbox' => 'DropboxFacade',
+            'bitcasa' => 'BitcasaFacade',
         );
 
     private static function getClassName($name)

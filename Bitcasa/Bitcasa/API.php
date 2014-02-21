@@ -1,9 +1,9 @@
 <?php
-class Dropbox_API
+class Bitcasa_API
 {
     // API Endpoints
-    const API_URL     = 'https://api.dropbox.com/1/';
-    const CONTENT_URL = 'https://api-content.dropbox.com/1/';
+    const API_URL     = 'https://api.bitcasa.com/1/';
+    const CONTENT_URL = 'https://api-content.bitcasa.com/1/';
 
     /**
      * OAuth consumer object
@@ -13,14 +13,14 @@ class Dropbox_API
 
     /**
      * The root level for file paths
-     * Either `dropbox` or `sandbox` (preferred)
+     * Either `bitcasa` or `sandbox` (preferred)
      * @var null|string
      */
     private $root;
 
     /**
      * Chunk size used for chunked uploads
-     * @see \Dropbox_API::chunkedUpload()
+     * @see \bitcasa_API::chunkedUpload()
      */
     private $chunkSize = 4194304;
 
@@ -32,9 +32,9 @@ class Dropbox_API
     /**
      * Set the OAuth consumer object
      * See 'General Notes' at the link below for information on access type
-     * @link https://www.dropbox.com/developers/reference/api
+     * @link https://www.bitcasa.com/developers/reference/api
      * @param OAuth\Consumer\ConsumerAbstract $OAuth
-     * @param string                          $root  Dropbox app access type
+     * @param string                          $root  bitcasa app access type
      */
     public function __construct($OAuth, $root = 'sandbox')
     {
@@ -50,8 +50,8 @@ class Dropbox_API
     */
     public function setRoot($root)
     {
-        if ($root !== 'sandbox' && $root !== 'dropbox') {
-            throw new Exception("Expected a root of either 'dropbox' or 'sandbox', got '$root'");
+        if ($root !== 'sandbox' && $root !== 'bitcasa') {
+            throw new Exception("Expected a root of either 'bitcasa' or 'sandbox', got '$root'");
         } else {
             $this->root = $root;
         }
@@ -77,7 +77,7 @@ class Dropbox_API
 
     /**
      * Uploads a physical file from disk
-     * Dropbox impose a 150MB limit to files uploaded via the API. If the file
+     * bitcasa impose a 150MB limit to files uploaded via the API. If the file
      * exceeds this limit or does not exist, an Exception will be thrown
      * @param  string      $file      Absolute path to the file to be uploaded
      * @param  string|bool $filename  The destination filename of the uploaded file
@@ -128,7 +128,7 @@ class Dropbox_API
     }
 
     /**
-     * Uploads large files to Dropbox in mulitple chunks
+     * Uploads large files to bitcasa in mulitple chunks
      * @param  string      $file      Absolute path to the file to be uploaded
      * @param  string|bool $filename  The destination filename of the uploaded file
      * @param  string      $path      Path to upload the file to, relative to root
@@ -228,7 +228,7 @@ class Dropbox_API
         return array(
             'name' => ($outFile) ? $outFile : basename($file),
             'mime' => $this->getMimeType(($outFile) ? $outFile : $response['body'], $outFile),
-            'meta' => json_decode($response['headers']['x-dropbox-metadata']),
+            'meta' => json_decode($response['headers']['x-bitcasa-metadata']),
             'data' => $response['body'],
         );
     }
@@ -374,7 +374,7 @@ class Dropbox_API
         return array(
             'name' => basename($file),
             'mime' => $this->getMimeType($response['body']),
-            'meta' => json_decode($response['headers']['x-dropbox-metadata']),
+            'meta' => json_decode($response['headers']['x-bitcasa-metadata']),
             'data' => $response['body'],
         );
     }
@@ -382,7 +382,7 @@ class Dropbox_API
     /**
      * Creates and returns a copy_ref to a file
      * This reference string can be used to copy that file to another user's
-     * Dropbox by passing it in as the from_copy_ref parameter on /fileops/copy
+     * bitcasa by passing it in as the from_copy_ref parameter on /fileops/copy
      * @param $path File for which ref should be created, relative to root
      * @return array
      */
@@ -478,7 +478,7 @@ class Dropbox_API
     /**
      * Set the chunk size for chunked uploads
      * If $chunkSize is empty, set to 4194304 bytes (4 MB)
-     * @see \Dropbox\API\chunkedUpload()
+     * @see \bitcasa\API\chunkedUpload()
      */
     public function setChunkSize($chunkSize = 4194304)
     {

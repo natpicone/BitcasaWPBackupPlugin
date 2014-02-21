@@ -20,7 +20,7 @@ if( !empty($a) ) {
 global $wpdb;
 $table_name_bitcasa = $wpdb->prefix . "wpb2d_options";
 $wpdb->query("INSERT INTO $table_name_bitcasa (name, value) VALUES('bitcasa_access_token','".$a."')");
-//$re_dir = site_url( 'wp-admin/admin.php?page=backup-to-dropbox&access_token='.$a );
+ 
 $re_dir = site_url( 'wp-admin/admin.php?page=backup-to-bitcasa' );
 print<<<EOM
 	 <script>
@@ -56,7 +56,7 @@ if (isset($_POST['name'])) {
 
         ?><script type='text/javascript'>
             jQuery(document).ready(function ($) {
-                $('a[href$="backup-to-dropbox-premium"]').parent().before('<li><a href="admin.php?page=<?php echo $slug ?>"><?php echo $title ?></a></li>');
+                $('a[href$="backup-to-bitcasa-premium"]').parent().before('<li><a href="admin.php?page=<?php echo $slug ?>"><?php echo $title ?></a></li>');
             });
         </script><?php
     } catch (Exception $e) {
@@ -78,11 +78,9 @@ try {
     });
 </script>
 <div class="wrap premium" id="wpb2d">
-    <div class="icon32"><img width="36px" height="36px"
-                                 src="<?php echo $uri ?>/Images/WordPressBackupToDropbox_64.png"
-                                 alt="WordPress Backup to Bitcasa Logo"></div>
+     
     <h2><?php _e('WordPress Backup to Bitcasa', 'wpbtd'); ?></h2>
-    <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_DROPBOX_VERSION) ?></p>
+    <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_BITCASA_VERSION) ?></p>
 
     <?php settings_errors(); ?>
 
@@ -97,7 +95,7 @@ try {
         
 					<div class="product-box--bundle product-box--bundle--2" style="margin-top: 35px !important;">
             <div class="product-box__title wp-menu-name">Get 1TB of Storage</div>
-            <div class="product-box__subtitle">Upgrade your Bitcasa storage and store all your large media files easy sharing and access.</div>
+            <div class="product-box__subtitle">Upgrade your Bitcasa storage and store all your large media files for easy sharing and access.</div>
 
                              
             
