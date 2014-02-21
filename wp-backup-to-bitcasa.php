@@ -11,7 +11,7 @@ define('EXTENSIONS_DIR', str_replace('/', DIRECTORY_SEPARATOR, WP_CONTENT_DIR . 
 define('CHUNKED_UPLOAD_THREASHOLD', 10485760); //10 MB
 define('MINUMUM_PHP_VERSION', '5.2.16');
 if (function_exists('spl_autoload_register')) {
-    spl_autoload_register('wpb2d_autoload');
+    spl_autoload_register('wpb2b_autoload');
 } else {
 					 
 					require_once 'Classes/Extension/Base.php';
@@ -31,12 +31,12 @@ if (function_exists('spl_autoload_register')) {
 	
 }
 
-function wpb2d_autoload($className)
+function wpb2b_autoload($className)
 {
     $fileName = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
-    if (preg_match('/^WPB2D/', $fileName)) {
-         $fileName = 'Classes' . str_replace('WPB2D', '', $fileName);
+    if (preg_match('/^BACKUP/', $fileName)) {
+         $fileName = 'Classes' . str_replace('BACKUP', '', $fileName);
     } elseif (preg_match('/^Bitca/', $fileName)) {
          $fileName = 'Bitca' . DIRECTORY_SEPARATOR . $fileName;
     } else {
@@ -50,11 +50,11 @@ function wpb2d_autoload($className)
     }
 }
 
-function wpb2d_style()
+function wpb2b_style()
 {
     //Register stylesheet
-    wp_register_style('wpb2d-style', plugins_url('wp-backup-to-bitcasa.css', __FILE__) );
-    wp_enqueue_style('wpb2d-style');
+    wp_register_style('wpb2b-style', plugins_url('wp-backup-to-bitcasa.css', __FILE__) );
+    wp_enqueue_style('wpb2b-style');
 }
 
 /**
@@ -75,7 +75,7 @@ function backup_to_bitcasa_admin_menu()
         $text = __('Account Upgrade', 'wpbtd');
         add_submenu_page('backup-to-bitcasa', $text, $text, 'activate_plugins', 'backup-to-bitcasa-monitor', 'backup_to_bitcasa_monitor');
 
-        WPB2D_Extension_Manager::construct()->add_menu_items();
+        BACKUP_Extension_Manager::construct()->add_menu_items();
 
         $text = __('Premium Extensions', 'wpbtd');
         
@@ -97,9 +97,9 @@ function backup_to_bitcasa_admin_menu_contents()
 	$uri = rtrim(WP_PLUGIN_URL, '/') . '/wordpress-backup-to-bitcasa';
 
     if(version_compare(PHP_VERSION, MINUMUM_PHP_VERSION) >= 0) {
-        include 'Views/wpb2d-options.php';
+        include 'Views/wpb2b-options.php';
     } else {
-        include 'Views/wpb2d-deprecated.php';
+        include 'Views/wpb2b-deprecated.php';
  }
 }
 
@@ -107,7 +107,7 @@ function backup_to_bitcasa_admin_menu_contents()
 function backup_to_admin_menu_contents_bitcasa()
 {
 		include_once 'BitcasaClient.php';
-        include 'Views/wpb2d-bitcasa-options.php';
+        include 'Views/wpb2b-bitcasa-options.php';
 	}
 
 
@@ -120,7 +120,7 @@ function backup_to_bitcasa_monitor()
 
 			require_once(ABSPATH . 'wp-admin/admin-header.php');
 			include_once 'Bitcasa/BitcasaClient.php';
-			include 'Views/wpb2d-monitor.php';
+			include 'Views/wpb2b-monitor.php';
  
 
 }
@@ -135,7 +135,7 @@ function backup_to_bitcasa_premium()
     wp_enqueue_script('jquery-ui-tabs');
 
     $uri = rtrim(WP_PLUGIN_URL, '/') . '/wordpress-backup-to-bitcasa';
-    include 'Views/wpb2d-premium.php';
+    include 'Views/wpb2b-premium.php';
 }
 
 /**
@@ -144,7 +144,7 @@ function backup_to_bitcasa_premium()
  */
 function backup_to_bitcasa_file_tree()
 {
-    include 'Views/wpb2d-file-tree.php';
+    include 'Views/wpb2b-file-tree.php';
     die();
 }
 
@@ -154,7 +154,7 @@ function backup_to_bitcasa_file_tree()
  */
 function backup_to_bitcasa_progress()
 {
-    include 'Views/wpb2d-progress.php';
+    include 'Views/wpb2b-progress.php';
     die();
 }
 
@@ -164,23 +164,23 @@ function backup_to_bitcasa_progress()
  */
 function execute_drobox_backup()
 {
-    WPB2D_Factory::get('logger')->delete_log();
-    WPB2D_Factory::get('logger')->log(sprintf(__('Backup started on %s.', 'wpbtd'), date("l F j, Y", strtotime(current_time('mysql')))));
+    BACKUP_Factory::get('logger')->delete_log();
+    BACKUP_Factory::get('logger')->log(sprintf(__('Backup started on %s.', 'wpbtd'), date("l F j, Y", strtotime(current_time('mysql')))));
 
     $time = ini_get('max_execution_time');
-    WPB2D_Factory::get('logger')->log(sprintf(
+    BACKUP_Factory::get('logger')->log(sprintf(
         __('Your time limit is %s and your memory limit is %s'),
         $time ? $time . ' ' . __('seconds', 'wpbtd') : __('unlimited', 'wpbtd'),
         ini_get('memory_limit')
     ));
 
     if (ini_get('safe_mode')) {
-        WPB2D_Factory::get('logger')->log(__("Safe mode is enabled on your server so the PHP time and memory limit cannot be set by the backup process. So if your backup fails it's highly probable that these settings are too low.", 'wpbtd'));
+        BACKUP_Factory::get('logger')->log(__("Safe mode is enabled on your server so the PHP time and memory limit cannot be set by the backup process. So if your backup fails it's highly probable that these settings are too low.", 'wpbtd'));
     }
 
-    WPB2D_Factory::get('config')->set_option('in_progress', true);
+    BACKUP_Factory::get('config')->set_option('in_progress', true);
 
-    if (defined('WPB2D_TEST_MODE')) {
+    if (defined('BACKUP_TEST_MODE')) {
         run_bitcasa_backup();
     } else {
         wp_schedule_single_event(time(), 'run_bitcasa_backup_hook');
@@ -193,12 +193,12 @@ function execute_drobox_backup()
  */
 function monitor_bitcasa_backup()
 {
-    $config = WPB2D_Factory::get('config');
-    $mtime = filemtime(WPB2D_Factory::get('logger')->get_log_file());
+    $config = BACKUP_Factory::get('config');
+    $mtime = filemtime(BACKUP_Factory::get('logger')->get_log_file());
 
     //5 mins to allow for socket timeouts and long uploads
     if ($config->get_option('in_progress') && ($mtime < time() - 300)) {
-        WPB2D_Factory::get('logger')->log(sprintf(__('There has been no backup activity for a long time. Attempting to resume the backup.' , 'wpbtd'), 5));
+        BACKUP_Factory::get('logger')->log(sprintf(__('There has been no backup activity for a long time. Attempting to resume the backup.' , 'wpbtd'), 5));
         $config->set_option('is_running', false);
 
         wp_schedule_single_event(time(), 'run_bitcasa_backup_hook');
@@ -210,10 +210,10 @@ function monitor_bitcasa_backup()
  */
 function run_bitcasa_backup()
 {
-    $options = WPB2D_Factory::get('config');
+    $options = BACKUP_Factory::get('config');
     if (!$options->get_option('is_running')) {
         $options->set_option('is_running', true);
-        WPB2D_BackupController::construct()->execute();
+        BACKUP_BackupController::construct()->execute();
     }
 }
 
@@ -227,51 +227,51 @@ function backup_to_bitcasa_cron_schedules($schedules)
     $new_schedules = array(
         'every_min' => array(
             'interval' => 60,
-            'display' => 'WPB2D - Monitor'
+            'display' => 'BACKUP - Monitor'
         ),
         'daily' => array(
             'interval' => 86400,
-            'display' => 'WPB2D - Daily'
+            'display' => 'BACKUP - Daily'
         ),
         'weekly' => array(
             'interval' => 604800,
-            'display' => 'WPB2D - Weekly'
+            'display' => 'BACKUP - Weekly'
         ),
         'fortnightly' => array(
             'interval' => 1209600,
-            'display' => 'WPB2D - Fortnightly'
+            'display' => 'BACKUP - Fortnightly'
         ),
         'monthly' => array(
             'interval' => 2419200,
-            'display' => 'WPB2D - Once Every 4 weeks'
+            'display' => 'BACKUP - Once Every 4 weeks'
         ),
         'two_monthly' => array(
             'interval' => 4838400,
-            'display' => 'WPB2D - Once Every 8 weeks'
+            'display' => 'BACKUP - Once Every 8 weeks'
         ),
         'three_monthly' => array(
             'interval' => 7257600,
-            'display' => 'WPB2D - Once Every 12 weeks'
+            'display' => 'BACKUP - Once Every 12 weeks'
         ),
     );
 
     return array_merge($schedules, $new_schedules);
 }
 
-function wpb2d_install()
+function wpb2b_install()
 {
-    $wpdb = WPB2D_Factory::db();
+    $wpdb = BACKUP_Factory::db();
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
-    $table_name = $wpdb->prefix . 'wpb2d_options';
+    $table_name = $wpdb->prefix . 'wpb2b_options';
     dbDelta("CREATE TABLE $table_name (
         name varchar(50) NOT NULL,
         value varchar(255) NOT NULL,
         UNIQUE KEY name (name)
     );");
 
-    $table_name = $wpdb->prefix . 'wpb2d_processed_files';
+    $table_name = $wpdb->prefix . 'wpb2b_processed_files';
     dbDelta("CREATE TABLE $table_name (
         file varchar(255) NOT NULL,
         offset int NOT NULL DEFAULT 0,
@@ -279,14 +279,14 @@ function wpb2d_install()
         UNIQUE KEY file (file)
     );");
 
-    $table_name = $wpdb->prefix . 'wpb2d_processed_dbtables';
+    $table_name = $wpdb->prefix . 'wpb2b_processed_dbtables';
     dbDelta("CREATE TABLE $table_name (
         name varchar(255) NOT NULL,
         count int NOT NULL DEFAULT 0,
         UNIQUE KEY name (name)
     );");
 
-    $table_name = $wpdb->prefix . 'wpb2d_excluded_files';
+    $table_name = $wpdb->prefix . 'wpb2b_excluded_files';
     dbDelta("CREATE TABLE $table_name (
         file varchar(255) NOT NULL,
         isdir tinyint(1) NOT NULL,
@@ -299,29 +299,29 @@ function wpb2d_install()
     global $EZSQL_ERROR;
     if ($EZSQL_ERROR) {
         foreach ($EZSQL_ERROR as $error) {
-            if (preg_match("/^CREATE TABLE {$wpdb->prefix}wpb2d_/", $error['query']))
+            if (preg_match("/^CREATE TABLE {$wpdb->prefix}wpb2b_/", $error['query']))
                 $errors[] = $error['error_str'];
         }
 
-        delete_option('wpb2d-init-errors');
-        add_option('wpb2d-init-errors', implode($errors, '<br />'), false, 'no');
+        delete_option('wpb2b-init-errors');
+        add_option('wpb2b-init-errors', implode($errors, '<br />'), false, 'no');
     }
 
     //Only set the DB version if there are no errors
     if (empty($errors)) {
-        WPB2D_Factory::get('config')->set_option('database_version', BACKUP_TO_BITCASA_DATABASE_VERSION);
+        BACKUP_Factory::get('config')->set_option('database_version', BACKUP_TO_BITCASA_DATABASE_VERSION);
     }
 }
 
-function wpb2d_init()
+function wpb2b_init()
 {
     try {
-        if (WPB2D_Factory::get('config')->get_option('database_version') < BACKUP_TO_BITCASA_DATABASE_VERSION) {
-            wpb2d_install();
+        if (BACKUP_Factory::get('config')->get_option('database_version') < BACKUP_TO_BITCASA_DATABASE_VERSION) {
+            wpb2b_install();
         }
 
-        if (!get_option('wpb2d-premium-extensions')) {
-            add_option('wpb2d-premium-extensions', array(), false, 'no');
+        if (!get_option('wpb2b-premium-extensions')) {
+            add_option('wpb2b-premium-extensions', array(), false, 'no');
         }
 
     } catch (Exception $e) {
@@ -352,10 +352,10 @@ add_action('execute_periodic_bitcasa_backup', 'execute_drobox_backup');
 add_action('execute_instant_drobox_backup', 'execute_drobox_backup');
 
 //Register database install
-register_activation_hook(__FILE__, 'wpb2d_install');
+register_activation_hook(__FILE__, 'wpb2b_install');
 
-add_action('admin_init', 'wpb2d_init');
-add_action('admin_enqueue_scripts', 'wpb2d_style');
+add_action('admin_init', 'wpb2b_init');
+add_action('admin_enqueue_scripts', 'wpb2b_style');
 
 //i18n language text domain
 load_plugin_textdomain('wpbtd', false, 'wordpress-backup-to-bitcasa/Languages/');

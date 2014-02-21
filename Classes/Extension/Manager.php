@@ -1,5 +1,5 @@
 <?php
-class WPB2D_Extension_Manager
+class BACKUP_Extension_Manager
 {
     const API_VERSION = 0;
     const API_KEY = '7121664d208a603de9d93e564adfcd0a';
@@ -17,7 +17,7 @@ class WPB2D_Extension_Manager
 
     public function __construct()
     {
-        $extensions = get_option('wpb2d-premium-extensions');
+        $extensions = get_option('wpb2b-premium-extensions');
 
         if (is_array($extensions)) {
             foreach ($extensions as $name => $file) {
@@ -36,8 +36,8 @@ class WPB2D_Extension_Manager
 
     public function get_url($api = false)
     {
-        if (defined('WPB2D_URL')) {
-            $url =  WPB2D_URL;
+        if (defined('BACKUP_URL')) {
+            $url =  BACKUP_URL;
         } else {
             $url = 'http://extendy.com';
         }
@@ -126,11 +126,11 @@ class WPB2D_Extension_Manager
 
         unlink($download_file);
 
-        $extensions = get_option('wpb2d-premium-extensions');
+        $extensions = get_option('wpb2b-premium-extensions');
 
         $extensions[$name] = str_replace(' ', '', ucwords($name)) . '.php';
 
-        update_option('wpb2d-premium-extensions', $extensions);
+        update_option('wpb2b-premium-extensions', $extensions);
 
         //Support for pre PHP 5.3
         if (!function_exists('spl_autoload_register')) {
@@ -143,7 +143,7 @@ class WPB2D_Extension_Manager
     public function get_output()
     {
         foreach ($this->objectCache as $obj) {
-            if ($obj && $obj->get_type() == WPB2D_Extension_Base::TYPE_OUTPUT && $obj->is_enabled()) {
+            if ($obj && $obj->get_type() == BACKUP_Extension_Base::TYPE_OUTPUT && $obj->is_enabled()) {
                 return $obj;
             }
         }
@@ -193,7 +193,7 @@ class WPB2D_Extension_Manager
 
     private function get_instance($name)
     {
-        $class = 'WPB2D_Extension_' . str_replace(' ', '', ucwords($name));
+        $class = 'BACKUP_Extension_' . str_replace(' ', '', ucwords($name));
 
         if (!isset($this->objectCache[$class])) {
             if (!class_exists($class)) {

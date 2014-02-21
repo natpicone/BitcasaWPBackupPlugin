@@ -1,5 +1,5 @@
 <?php
-class WPB2D_FileList
+class BACKUP_FileList
 {
     private static $ignored_patterns = array(
         '.DS_Store', 'Thumbs.db', 'desktop.ini',
@@ -21,14 +21,14 @@ class WPB2D_FileList
 
     public function __construct()
     {
-        $this->db = WPB2D_Factory::db();
+        $this->db = BACKUP_Factory::db();
 
-        $result = $this->db->get_results("SELECT * FROM {$this->db->prefix}wpb2d_excluded_files WHERE isdir = 0");
+        $result = $this->db->get_results("SELECT * FROM {$this->db->prefix}wpb2b_excluded_files WHERE isdir = 0");
         foreach ($result as $value) {
             $this->excluded_files[] = $value->file;
         }
 
-        $result = $this->db->get_results("SELECT * FROM {$this->db->prefix}wpb2d_excluded_files WHERE isdir = 1");
+        $result = $this->db->get_results("SELECT * FROM {$this->db->prefix}wpb2b_excluded_files WHERE isdir = 1");
         foreach ($result as $value) {
             $this->excluded_dirs[] = $value->file;
         }
@@ -65,7 +65,7 @@ class WPB2D_FileList
     {
         if (!in_array($file, $this->excluded_files)) {
             $this->excluded_files[] = $file;
-            $this->db->insert("{$this->db->prefix}wpb2d_excluded_files", array(
+            $this->db->insert("{$this->db->prefix}wpb2b_excluded_files", array(
                 'file' => $file,
                 'isdir' => false
             ));
@@ -76,7 +76,7 @@ class WPB2D_FileList
     {
         if (!in_array($dir, $this->excluded_dirs)) {
             $this->excluded_dirs[] = $dir;
-            $this->db->insert("{$this->db->prefix}wpb2d_excluded_files", array(
+            $this->db->insert("{$this->db->prefix}wpb2b_excluded_files", array(
                 'file' => $dir,
                 'isdir' => true
             ));
@@ -88,7 +88,7 @@ class WPB2D_FileList
         $key = array_search($file, $this->excluded_files);
 
         $this->db->query(
-            $this->db->prepare("DELETE FROM {$this->db->prefix}wpb2d_excluded_files WHERE file =  %s", $file)
+            $this->db->prepare("DELETE FROM {$this->db->prefix}wpb2b_excluded_files WHERE file =  %s", $file)
         );
 
         unset($this->excluded_files[$key]);
@@ -99,7 +99,7 @@ class WPB2D_FileList
         $key = array_search($dir, $this->excluded_dirs);
 
         $this->db->query(
-            $this->db->prepare("DELETE FROM {$this->db->prefix}wpb2d_excluded_files WHERE file =  %s", $dir)
+            $this->db->prepare("DELETE FROM {$this->db->prefix}wpb2b_excluded_files WHERE file =  %s", $dir)
         );
 
         unset($this->excluded_dirs[$key]);

@@ -1,5 +1,5 @@
 <?php
-abstract class WPB2D_Extension_Base
+abstract class BACKUP_Extension_Base
 {
     const TYPE_DEFAULT = 1;
     const TYPE_OUTPUT = 2;
@@ -14,8 +14,8 @@ abstract class WPB2D_Extension_Base
 
     public function __construct()
     {
-        $this->bitcasa = WPB2D_Factory::get('bitcasa');
-        $this->config  = WPB2D_Factory::get('config');
+        $this->bitcasa = BACKUP_Factory::get('bitcasa');
+        $this->config  = BACKUP_Factory::get('config');
     }
 
     public function set_chunked_upload_threashold($threashold)

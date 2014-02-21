@@ -1,5 +1,5 @@
 <?php
-class WPB2D_Extension_DefaultOutput extends WPB2D_Extension_Base
+class BACKUP_Extension_DefaultOutput extends BACKUP_Extension_Base
 {
     const MAX_ERRORS = 10;
 
@@ -36,7 +36,7 @@ class WPB2D_Extension_DefaultOutput extends WPB2D_Extension_Base
                     if ($processed_file && $processed_file->offset > 0)
                         $msg = __("Resuming upload of large file '%s'", 'wpbtd');
 
-                    WPB2D_Factory::get('logger')->log(sprintf(
+                    BACKUP_Factory::get('logger')->log(sprintf(
                         $msg,
                         basename($file),
                         round($file_size / 1048576, 1)
@@ -49,7 +49,7 @@ class WPB2D_Extension_DefaultOutput extends WPB2D_Extension_Base
             }
 
         } catch (Exception $e) {
-            WPB2D_Factory::get('logger')->log(sprintf(__("Error uploading '%s' to bitcasa: %s", 'wpbtd'), $file, strip_tags($e->getMessage())));
+            BACKUP_Factory::get('logger')->log(sprintf(__("Error uploading '%s' to bitcasa: %s", 'wpbtd'), $file, strip_tags($e->getMessage())));
             $this->error_count++;
         }
     }

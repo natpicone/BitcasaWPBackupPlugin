@@ -1,5 +1,5 @@
 <?php
-class WPB2D_Processed_Files extends WPB2D_Processed_Base
+class BACKUP_Processed_Files extends BACKUP_Processed_Base
 {
     protected function getTableName()
     {

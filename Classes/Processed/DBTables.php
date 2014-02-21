@@ -1,5 +1,5 @@
 <?php
-class WPB2D_Processed_DBTables extends WPB2D_Processed_Base
+class BACKUP_Processed_DBTables extends BACKUP_Processed_Base
 {
     const COMPLETE = -1;
 

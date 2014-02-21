@@ -1,5 +1,5 @@
 <?php
-class WPB2D_BackupController
+class BACKUP_BackupController
 {
     private
         $bitcasa,
@@ -15,9 +15,9 @@ class WPB2D_BackupController
 
     public function __construct($output = null)
     {
-        $this->config = WPB2D_Factory::get('config');
-        $this->bitcasa = WPB2D_Factory::get('bitcasa');
-        $this->output = $output ? $output : WPB2D_Extension_Manager::construct()->get_output();
+        $this->config = BACKUP_Factory::get('config');
+        $this->bitcasa = BACKUP_Factory::get('bitcasa');
+        $this->output = $output ? $output : BACKUP_Extension_Manager::construct()->get_output();
     }
 
     public function backup_path($path, $bitcasa_path = null, $always_include = null)
@@ -30,14 +30,14 @@ class WPB2D_BackupController
             $bitcasa_path = get_sanitized_home_path();
         }
 
-        $file_list = WPB2D_Factory::get('fileList');
+        $file_list = BACKUP_Factory::get('fileList');
 
         $current_processed_files = $uploaded_files = array();
 
         $next_check = time() + 5;
         $total_files = $this->config->get_option('total_file_count');
 
-        $processed_files = WPB2D_Factory::get('processed-files');
+        $processed_files = BACKUP_Factory::get('processed-files');
 
         $this->processed_file_count = $processed_files->get_file_count();
 
@@ -74,7 +74,7 @@ class WPB2D_BackupController
                     }
 
                     if ($msg) {
-                        WPB2D_Factory::get('logger')->log($msg, $uploaded_files);
+                        BACKUP_Factory::get('logger')->log($msg, $uploaded_files);
                     }
 
                     $next_check = time() + 5;
@@ -101,7 +101,7 @@ class WPB2D_BackupController
 
                     if ($this->output->out($bitcasa_path, $file, $processed_file)) {
                         $uploaded_files[] = array(
-                            'file' => str_replace($bitcasa_path . DIRECTORY_SEPARATOR, '', WPB2D_BitcasaFacade::remove_secret($file)),
+                            'file' => str_replace($bitcasa_path . DIRECTORY_SEPARATOR, '', BACKUP_BitcasaFacade::remove_secret($file)),
                             'mtime' => filemtime($file),
                         );
 
@@ -119,9 +119,9 @@ class WPB2D_BackupController
 
     public function execute()
     {
-        $manager = WPB2D_Extension_Manager::construct();
-        $logger = WPB2D_Factory::get('logger');
-        $dbBackup = WPB2D_Factory::get('databaseBackup');
+        $manager = BACKUP_Extension_Manager::construct();
+        $logger = BACKUP_Factory::get('logger');
+        $dbBackup = BACKUP_Factory::get('databaseBackup');
 
         $this->config->set_time_limit();
         $this->config->set_memory_limit();
@@ -130,8 +130,8 @@ class WPB2D_BackupController
 
              //Create the SQL backups
             $dbStatus = $dbBackup->get_status();
-            if ($dbStatus == WPB2D_DatabaseBackup::NOT_STARTED) {
-                if ($dbStatus == WPB2D_DatabaseBackup::IN_PROGRESS) {
+            if ($dbStatus == BACKUP_DatabaseBackup::NOT_STARTED) {
+                if ($dbStatus == BACKUP_DatabaseBackup::IN_PROGRESS) {
                     $logger->log(__('Resuming SQL backup.', 'wpbtd'));
                 } else {
                     $logger->log(__('Starting SQL backup.', 'wpbtd'));
@@ -157,7 +157,7 @@ class WPB2D_BackupController
 
     public function backup_now()
     {
-        if (defined('WPB2D_TEST_MODE')) {
+        if (defined('BACKUP_TEST_MODE')) {
             execute_drobox_backup();
         } else {
             wp_schedule_single_event(time(), 'execute_instant_drobox_backup');
@@ -172,20 +172,20 @@ class WPB2D_BackupController
 
     private function clean_up()
     {
-        WPB2D_Factory::get('databaseBackup')->clean_up();
-        WPB2D_Extension_Manager::construct()->get_output()->clean_up();
+        BACKUP_Factory::get('databaseBackup')->clean_up();
+        BACKUP_Extension_Manager::construct()->get_output()->clean_up();
     }
 
     private static function create_silence_file()
     {
-        $silence = WPB2D_Factory::get('config')->get_backup_dir() . DIRECTORY_SEPARATOR . 'index.php';
+        $silence = BACKUP_Factory::get('config')->get_backup_dir() . DIRECTORY_SEPARATOR . 'index.php';
         if (!file_exists($silence)) {
             $fh = @fopen($silence, 'w');
             if (!$fh) {
                 throw new Exception(
                     sprintf(
                         __("WordPress does not have write access to '%s'. Please grant it write privileges before using this plugin."),
-                        WPB2D_Factory::get('config')->get_backup_dir()
+                        BACKUP_Factory::get('config')->get_backup_dir()
                     )
                 );
             }
@@ -196,7 +196,7 @@ class WPB2D_BackupController
 
     public static function create_dump_dir()
     {
-        $dump_dir = WPB2D_Factory::get('config')->get_backup_dir();
+        $dump_dir = BACKUP_Factory::get('config')->get_backup_dir();
         $error_message  = sprintf(__("WordPress Backup to Bitcasa requires write access to '%s', please ensure it exists and has write permissions.", 'wpbtd'), $dump_dir);
 
         if (!file_exists($dump_dir)) {

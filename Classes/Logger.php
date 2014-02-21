@@ -1,7 +1,7 @@
 <?php
-class WPB2D_Logger
+class BACKUP_Logger
 {
-    const LOGFILE = 'wpb2d-backup-log.txt';
+    const LOGFILE = 'wpb2b-backup-log.txt';
 
     private $logFile = null;
 
@@ -45,15 +45,15 @@ class WPB2D_Logger
     public function get_log_file()
     {
         if (!$this->logFile) {
-            WPB2D_BackupController::create_dump_dir();
+            BACKUP_BackupController::create_dump_dir();
 
-            $path = WPB2D_Factory::get('config')->get_backup_dir() . DIRECTORY_SEPARATOR . self::LOGFILE;
+            $path = BACKUP_Factory::get('config')->get_backup_dir() . DIRECTORY_SEPARATOR . self::LOGFILE;
 
             $files = glob($path . '.*');
             if (isset($files[0])) {
                 $this->logFile = $files[0];
             } else {
-                $this->logFile = $path . '.' . WPB2D_Factory::secret(self::LOGFILE);
+                $this->logFile = $path . '.' . BACKUP_Factory::secret(self::LOGFILE);
             }
         }
 

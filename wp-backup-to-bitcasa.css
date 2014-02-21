@@ -1,19 +1,19 @@
-#wpb2d .heading--inline {
+#wpb2b .heading--inline {
 	display: inline-block;
 }
 
-#wpb2d .history_box {
+#wpb2b .history_box {
 	max-height: 140px;
 	overflow-y: scroll;
 	margin: 0 0 0 10px;
 }
 
-#wpb2d .message_box {
+#wpb2b .message_box {
 	font-weight: bold;
 	color: green;
 }
 
-#wpb2d #file_tree {
+#wpb2b #file_tree {
 	margin-left: 10px;
 	padding: 5px 0 5px 10px;
 	width: 400px;
@@ -26,7 +26,7 @@
   background-color: white;
 }
 
-#wpb2d #togglers {
+#wpb2b #togglers {
 	width: 400px;
 	margin: 10px 5px 0 10px;
 	padding: 0 0 0 7px;
@@ -34,49 +34,49 @@
   line-height: 2;
 }
 
-#wpb2d .bump {
+#wpb2b .bump {
 	margin: 10px 0 0 10px !important;
 }
 
-#wpb2d .bitcasa_location.hide {
+#wpb2b .bitcasa_location.hide {
 	display: none;
 }
 
-#wpb2d #progress {
+#wpb2b #progress {
 	max-height: 400px;
 	overflow-y: scroll;
 	margin: 0 0 10px 0;
 }
 
-#wpb2d ul {
+#wpb2b ul {
 	margin: 0;
 }
 
-#wpb2d .files {
+#wpb2b .files {
 	display: none;
 	margin-left: 58px;
 }
 
-#wpb2d .files li {
+#wpb2b .files li {
 	margin: 5px 0;
 	padding-left: 20px;
 }
 
-#wpb2d .view-files {
+#wpb2b .view-files {
 	text-decoration: none;
 }
 
-#wpb2d .loading {
+#wpb2b .loading {
 	padding: 5px;
 	clear: both;
 }
 
-#wpb2d #circleG {
+#wpb2b #circleG {
 	margin-top: 10px;
 	width: 150px;
 }
 
-#wpb2d .circleG {
+#wpb2b .circleG {
 	background-color: #FFFFFF;
 	float: left;
 	height: 15px;
@@ -105,28 +105,28 @@
 	opacity: 0.3
 }
 
-#wpb2d #circleG_1 {
+#wpb2b #circleG_1 {
 	-webkit-animation-delay: 0.39s;
 	-moz-animation-delay: 0.39s;
 	-o-animation-delay: 0.39s;
 	-ms-animation-delay: 0.39s;
 }
 
-#wpb2d #circleG_2 {
+#wpb2b #circleG_2 {
 	-webkit-animation-delay: 0.91s;
 	-moz-animation-delay: 0.91s;
 	-o-animation-delay: 0.91s;
 	-ms-animation-delay: 0.91s;
 }
 
-#wpb2d #circleG_3 {
+#wpb2b #circleG_3 {
 	-webkit-animation-delay: 1.17s;
 	-moz-animation-delay: 1.17s;
 	-o-animation-delay: 1.17s;
 	-ms-animation-delay: 1.17s;
 }
 
-#wpb2d @-webkit-keyframes bounce_circleG {
+#wpb2b @-webkit-keyframes bounce_circleG {
 	0% {
 		opacity: 0.3
 	}
@@ -142,7 +142,7 @@
 
 }
 
-#wpb2d @-moz-keyframes bounce_circleG {
+#wpb2b @-moz-keyframes bounce_circleG {
 	0% {
 		opacity: 0.3
 	}
@@ -158,7 +158,7 @@
 
 }
 
-#wpb2d @-o-keyframes bounce_circleG {
+#wpb2b @-o-keyframes bounce_circleG {
 	0% {
 		opacity: 0.3
 	}
@@ -173,7 +173,7 @@
 	}
 }
 
-#wpb2d @-ms-keyframes bounce_circleG {
+#wpb2b @-ms-keyframes bounce_circleG {
 	0% {
 		opacity: 0.3
 	}
@@ -188,39 +188,39 @@
 	}
 }
 
-#wpb2d .premium th {
+#wpb2b .premium th {
 	text-align: left;
 	border-top: 1px solid #DEDEDE;
 }
 
-#wpb2d .premium td, .premium th {
+#wpb2b .premium td, .premium th {
 	border-right: 1px solid #DEDEDE;
 	border-bottom: 1px solid #DEDEDE;
 	padding: 10px;
 }
 
-#wpb2d .premium table {
+#wpb2b .premium table {
 	border-left: 1px solid #DEDEDE;
 }
 
-#wpb2d .paypal, .instructions {
+#wpb2b .paypal, .instructions {
 	float: left;
 	margin-right: 20px;
 }
 
-#wpb2d .errors {
+#wpb2b .errors {
 	clear: both;
 }
 
-#wpb2d .extensions-table {
+#wpb2b .extensions-table {
 	margin-top: 20px;
 }
 
-#wpb2d .paragraph-block {
+#wpb2b .paragraph-block {
 	max-width: 750px;
 }
 
-#wpb2d .product-box--single, .product-box--multi, .product-box--bundle {
+#wpb2b .product-box--single, .product-box--multi, .product-box--bundle {
 	display: inline-block;
 	padding: 20px;
 	text-align: center;
@@ -230,39 +230,39 @@
   background-color: white;
 }
 
-#wpb2d .product-box--single {
+#wpb2b .product-box--single {
 	margin: 10px 0 10px 10px;
 	float: left;
 }
 
-#wpb2d .product-box--bundle {
+#wpb2b .product-box--bundle {
 	display: block;
 	clear: both;
 	margin: 0;
 }
 
-#wpb2d .product-box--bundle--1 {
+#wpb2b .product-box--bundle--1 {
 	width: 201px;
 }
 
-#wpb2d .product-box--bundle--2 {
+#wpb2b .product-box--bundle--2 {
 	width: 402px;
 }
 
-#wpb2d .product-box--bundle--3 {
+#wpb2b .product-box--bundle--3 {
 	width: 603px;
 }
 
-#wpb2d .product-box--bundle .product-box__price,
-#wpb2d .product-box--bundle .product-box__button {
+#wpb2b .product-box--bundle .product-box__price,
+#wpb2b .product-box--bundle .product-box__button {
 	display: inline-block;
 }
 
-#wpb2d .product-box--no-margin {
+#wpb2b .product-box--no-margin {
 	margin-left: 0px !important;
 }
 
-#wpb2d .product-box__title {
+#wpb2b .product-box__title {
 	background: #777;
 	color: #FFF;
 	font-size: 16px;
@@ -270,46 +270,46 @@
 	border-radius: 5px;
 }
 
-#wpb2d .product-box__subtitle {
+#wpb2b .product-box__subtitle {
 	padding: 10px 0;
 	max-width: 175px;
 }
 
-#wpb2d .product-box--bundle .product-box__subtitle,
-#wpb2d .product-box--bundle .product-box__alert {
+#wpb2b .product-box--bundle .product-box__subtitle,
+#wpb2b .product-box--bundle .product-box__alert {
 	max-width: 100%;
 }
 
-#wpb2d .product-box__price {
+#wpb2b .product-box__price {
 	font-size: 22px;
 	padding: 5px;
 	margin-bottom: 10px;
 }
 
-#wpb2d .product-box__message {
+#wpb2b .product-box__message {
 	color: green;
 	font-size: 13px;
 	font-weight: bold;
 }
 
-#wpb2d .product-box__alert {
+#wpb2b .product-box__alert {
 	margin-top: 10px;
 	font-size: 11px;
 	max-width: 200px;
 }
 
-#wpb2d .product-box__tick {
+#wpb2b .product-box__tick {
 	margin-bottom: 5px;
 	color: green;
 	font-size: 25px;
 	display: block;
 }
 
-#wpb2d .product-box__button {
+#wpb2b .product-box__button {
 	padding: 6px;
 }
 
-#wpb2d .note_paragraph {
+#wpb2b .note_paragraph {
 	padding-top: 10px;
 	clear: both;
 }
@@ -322,11 +322,11 @@
 
 /* Layout helpers
 ----------------------------------*/
-#wpb2d .ui-helper-hidden {
+#wpb2b .ui-helper-hidden {
 	display: none;
 }
 
-#wpb2d .ui-helper-hidden-accessible {
+#wpb2b .ui-helper-hidden-accessible {
 	border: 0;
 	clip: rect(0 0 0 0);
 	height: 1px;
@@ -337,7 +337,7 @@
 	width: 1px;
 }
 
-#wpb2d .ui-helper-reset {
+#wpb2b .ui-helper-reset {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -348,22 +348,22 @@
 	list-style: none;
 }
 
-#wpb2d .ui-helper-clearfix:before,
-#wpb2d .ui-helper-clearfix:after {
+#wpb2b .ui-helper-clearfix:before,
+#wpb2b .ui-helper-clearfix:after {
 	content: "";
 	display: table;
 	border-collapse: collapse;
 }
 
-#wpb2d .ui-helper-clearfix:after {
+#wpb2b .ui-helper-clearfix:after {
 	clear: both;
 }
 
-#wpb2d .ui-helper-clearfix {
+#wpb2b .ui-helper-clearfix {
 	min-height: 0; /* support: IE7 */
 }
 
-#wpb2d .ui-helper-zfix {
+#wpb2b .ui-helper-zfix {
 	width: 100%;
 	height: 100%;
 	top: 0;
@@ -373,7 +373,7 @@
 	filter:Alpha(Opacity=0);
 }
 
-#wpb2d .ui-front {
+#wpb2b .ui-front {
 	z-index: 100;
 }
 
@@ -381,7 +381,7 @@
 ----------------------------------*/
 
 /* Overlays */
-#wpb2d .ui-widget-overlay {
+#wpb2b .ui-widget-overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -389,17 +389,17 @@
 	height: 100%;
 }
 
-#wpb2d .ui-tabs {
+#wpb2b .ui-tabs {
 	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
 	padding: .2em;
 }
 
-#wpb2d .ui-tabs .ui-tabs-nav {
+#wpb2b .ui-tabs .ui-tabs-nav {
 	margin: 0;
 	padding: .2em .2em 0;
 }
 
-#wpb2d .ui-tabs .ui-tabs-nav li {
+#wpb2b .ui-tabs .ui-tabs-nav li {
 	list-style: none;
 	float: left;
 	position: relative;
@@ -410,30 +410,30 @@
 	white-space: nowrap;
 }
 
-#wpb2d .ui-tabs .ui-tabs-nav li a {
+#wpb2b .ui-tabs .ui-tabs-nav li a {
 	float: left;
 	padding: .5em 1em;
 	text-decoration: none;
 }
 
-#wpb2d .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+#wpb2b .ui-tabs .ui-tabs-nav li.ui-tabs-active {
 	margin-bottom: -1px;
 	padding-bottom: 1px;
 }
 
-#wpb2d .ui-tabs .ui-tabs-nav li.ui-tabs-active a,
-#wpb2d .ui-tabs .ui-tabs-nav li.ui-state-disabled a,
-#wpb2d .ui-tabs .ui-tabs-nav li.ui-tabs-loading a {
+#wpb2b .ui-tabs .ui-tabs-nav li.ui-tabs-active a,
+#wpb2b .ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+#wpb2b .ui-tabs .ui-tabs-nav li.ui-tabs-loading a {
 	cursor: text;
 }
 
-#wpb2d .ui-tabs .ui-tabs-nav li a, /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
-#wpb2d .ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a {
+#wpb2b .ui-tabs .ui-tabs-nav li a, /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+#wpb2b .ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a {
 	outline: none;
 	cursor: pointer;
 }
 
-#wpb2d .ui-tabs .ui-tabs-panel {
+#wpb2b .ui-tabs .ui-tabs-panel {
 	display: block;
 	border-width: 0;
 	background: none;
@@ -442,57 +442,57 @@
 /* Component containers
 ----------------------------------*/
 
-#wpb2d .ui-widget-header {
+#wpb2b .ui-widget-header {
 	border-bottom: 1px solid #aaaaaa;
 }
 
 /* Interaction states
 ----------------------------------*/
-#wpb2d .ui-state-default,
-#wpb2d .ui-widget-content .ui-state-default,
-#wpb2d .ui-widget-header .ui-state-default {
+#wpb2b .ui-state-default,
+#wpb2b .ui-widget-content .ui-state-default,
+#wpb2b .ui-widget-header .ui-state-default {
 	border: 1px solid #d3d3d3;
 	font-weight: normal;
 	color: #555555;
 }
 
-#wpb2d .ui-state-default a,
-#wpb2d .ui-state-default a:link,
-#wpb2d .ui-state-default a:visited {
+#wpb2b .ui-state-default a,
+#wpb2b .ui-state-default a:link,
+#wpb2b .ui-state-default a:visited {
 	color: #555555;
 	text-decoration: none;
 }
 
-#wpb2d .ui-state-hover,
-#wpb2d .ui-widget-content .ui-state-hover,
-#wpb2d .ui-widget-header .ui-state-hover,
-#wpb2d .ui-state-focus,
-#wpb2d .ui-widget-content .ui-state-focus,
-#wpb2d .ui-widget-header .ui-state-focus {
+#wpb2b .ui-state-hover,
+#wpb2b .ui-widget-content .ui-state-hover,
+#wpb2b .ui-widget-header .ui-state-hover,
+#wpb2b .ui-state-focus,
+#wpb2b .ui-widget-content .ui-state-focus,
+#wpb2b .ui-widget-header .ui-state-focus {
 	border: 1px solid #999999;
 	font-weight: normal;
 	color: #212121;
 }
 
-#wpb2d .ui-state-hover a,
-#wpb2d .ui-state-hover a:hover,
-#wpb2d .ui-state-hover a:link,
-#wpb2d .ui-state-hover a:visited {
+#wpb2b .ui-state-hover a,
+#wpb2b .ui-state-hover a:hover,
+#wpb2b .ui-state-hover a:link,
+#wpb2b .ui-state-hover a:visited {
 	color: #212121;
 	text-decoration: none;
 }
 
-#wpb2d .ui-state-active,
-#wpb2d .ui-widget-content .ui-state-active,
-#wpb2d .ui-widget-header .ui-state-active {
+#wpb2b .ui-state-active,
+#wpb2b .ui-widget-content .ui-state-active,
+#wpb2b .ui-widget-header .ui-state-active {
 	border: 1px solid #aaaaaa;
 	font-weight: normal;
 	color: #212121;
 }
 
-#wpb2d .ui-state-active a,
-#wpb2d .ui-state-active a:link,
-#wpb2d .ui-state-active a:visited {
+#wpb2b .ui-state-active a,
+#wpb2b .ui-state-active a:link,
+#wpb2b .ui-state-active a:visited {
 	color: #212121;
 	text-decoration: none;
 }
@@ -501,17 +501,17 @@
 ----------------------------------*/
 
 /* Corner radius */
-#wpb2d .ui-corner-all,
-#wpb2d .ui-corner-top,
-#wpb2d .ui-corner-left,
-#wpb2d .ui-corner-tl {
+#wpb2b .ui-corner-all,
+#wpb2b .ui-corner-top,
+#wpb2b .ui-corner-left,
+#wpb2b .ui-corner-tl {
 	border-top-left-radius: 4px;
 }
 
-#wpb2d .ui-corner-all,
-#wpb2d .ui-corner-top,
-#wpb2d .ui-corner-right,
-#wpb2d .ui-corner-tr {
+#wpb2b .ui-corner-all,
+#wpb2b .ui-corner-top,
+#wpb2b .ui-corner-right,
+#wpb2b .ui-corner-tr {
 	border-top-right-radius: 4px;
 }
 

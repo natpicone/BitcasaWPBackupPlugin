@@ -1,9 +1,9 @@
 <?php
-WPB2D_Factory::get('config')->set_time_limit();
-WPB2D_Factory::get('config')->set_memory_limit();
+BACKUP_Factory::get('config')->set_time_limit();
+BACKUP_Factory::get('config')->set_memory_limit();
 
 try {
-    $file_list = new WPB2D_FileList();
+    $file_list = new BACKUP_FileList();
 
     if (isset($_POST['dir'])) {
 

@@ -91,7 +91,7 @@ class BitcasaClient
 	
 		
 		global $wpdb;
-		$table_name_bitcasa = $wpdb->prefix . "wpb2d_options";
+		$table_name_bitcasa = $wpdb->prefix . "wpb2b_options";
 		$sql1 = "SELECT * from $table_name_bitcasa where name='bitcasa_access_token'";
 		$query1 = $wpdb->get_results($sql1);
 		$bitcasa_access_token_NEW=$query1[0]->value;
@@ -1802,6 +1802,4 @@ class BitcasaInfiniteDrive extends BitcasaFolder
 <?php 
 define('OAUTH_CLIENTID','0e6dc619');
 define('OAUTH_SECRET','7113854a0c01e8067f390ba81b263327');
- 
-
 ?>

@@ -1,5 +1,5 @@
 <?php
-class WPB2D_DatabaseBackup
+class BACKUP_DatabaseBackup
 {
     const SELECT_QUERY_LIMIT = 10;
     const WAIT_TIMEOUT = 600; //10 minutes
@@ -15,9 +15,9 @@ class WPB2D_DatabaseBackup
 
     public function __construct($processed = null)
     {
-        $this->database = WPB2D_Factory::db();
-        $this->config = WPB2D_Factory::get('config');
-        $this->processed = $processed ? $processed : new WPB2D_Processed_DBTables();
+        $this->database = BACKUP_Factory::db();
+        $this->config = BACKUP_Factory::get('config');
+        $this->processed = $processed ? $processed : new BACKUP_Processed_DBTables();
         $this->set_wait_timeout();
     }
 
@@ -57,12 +57,12 @@ class WPB2D_DatabaseBackup
                 }
 
                 if ($count > 0) {
-                    WPB2D_Factory::get('logger')->log(sprintf(__("Resuming table '%s' at row %s.", 'wpbtd'), $tableName, $count));
+                    BACKUP_Factory::get('logger')->log(sprintf(__("Resuming table '%s' at row %s.", 'wpbtd'), $tableName, $count));
                 }
 
                 $this->backup_database_table($tableName, $count);
 
-                WPB2D_Factory::get('logger')->log(sprintf(__("Processed table '%s'.", 'wpbtd'), $tableName));
+                BACKUP_Factory::get('logger')->log(sprintf(__("Processed table '%s'.", 'wpbtd'), $tableName));
             }
         }
     }
@@ -83,7 +83,7 @@ class WPB2D_DatabaseBackup
             return $files[0];
         }
 
-        return $file . '.' . WPB2D_Factory::secret(DB_NAME);
+        return $file . '.' . BACKUP_Factory::secret(DB_NAME);
     }
 
     private function set_wait_timeout()
@@ -97,7 +97,7 @@ class WPB2D_DatabaseBackup
 
         if (!is_writable($dump_location)) {
             $msg = sprintf(__("A database backup cannot be created because WordPress does not have write access to '%s', please ensure this directory has write access.", 'wpbtd'), $dump_location);
-            WPB2D_Factory::get('logger')->log($msg);
+            BACKUP_Factory::get('logger')->log($msg);
 
             return false;
         }
@@ -106,7 +106,7 @@ class WPB2D_DatabaseBackup
 
         $this->write_to_temp("-- WordPress Backup to Bitcasa SQL Dump\n");
         $this->write_to_temp("-- Version " . BACKUP_TO_BITCASA_VERSION . "\n");
-        $this->write_to_temp("-- http://wpb2d.com\n");
+        $this->write_to_temp("-- http://wpb2b.com\n");
         $this->write_to_temp("-- Generation Time: " . date("F j, Y", $blog_time) . " at " . date("H:i", $blog_time) . "\n\n");
         $this->write_to_temp('SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";' . "\n\n");
 

@@ -1,5 +1,5 @@
 <?php
-class WPB2D_DropboxFacade
+class BACKUP_DropboxFacade
 {
     const CONSUMER_KEY = 'u1i8xniul59ggxs';
     const CONSUMER_SECRET = '0ssom5yd1ybebhy';
@@ -25,7 +25,7 @@ class WPB2D_DropboxFacade
 
     public function init()
     {
-        $this->config = WPB2D_Factory::get('config');
+        $this->config = BACKUP_Factory::get('config');
 
         if (!extension_loaded('curl')) {
             throw new Exception(sprintf(
@@ -35,7 +35,7 @@ class WPB2D_DropboxFacade
             ));
         }
 
-        $this->oauth = new Dropbox_OAuth_Consumer_Curl(self::CONSUMER_KEY, self::CONSUMER_SECRET);
+        $this->oauth = new Bitcasa_OAuth_Consumer_Curl(self::CONSUMER_KEY, self::CONSUMER_SECRET);
 
         $this->oauth_state = $this->config->get_option('oauth_state');
         $this->request_token = $this->get_token('request');
@@ -61,8 +61,8 @@ class WPB2D_DropboxFacade
             $this->save_tokens();
         }
 
-        $this->dropbox = new Dropbox_API($this->oauth);
-        $this->dropbox->setTracker(new WPB2D_UploadTracker());
+        $this->bitcasa = new Bitcasa_API($this->oauth);
+        $this->bitcasa->setTracker(new BACKUP_UploadTracker());
     }
 
     private function get_token($type)
@@ -102,7 +102,7 @@ class WPB2D_DropboxFacade
     public function get_account_info()
     {
         if (!isset($this->account_info_cache)) {
-            $response = $this->dropbox->accountInfo();
+            $response = $this->bitcasa->accountInfo();
             $this->account_info_cache = $response['body'];
         }
 
@@ -137,7 +137,7 @@ class WPB2D_DropboxFacade
         $i = 0;
         while ($i++ < self::RETRY_COUNT) {
             try {
-                return $this->dropbox->putFile($file, $this->remove_secret($file), $path);
+                return $this->bitcasa->putFile($file, $this->remove_secret($file), $path);
             } catch (Exception $e) {}
         }
         throw $e;
@@ -151,18 +151,18 @@ class WPB2D_DropboxFacade
             $upload_id = $processed_file->uploadid;
         }
 
-        return $this->dropbox->chunkedUpload($file, $this->remove_secret($file), $path, true, $offest, $upload_id);
+        return $this->bitcasa->chunkedUpload($file, $this->remove_secret($file), $path, true, $offest, $upload_id);
     }
 
     public function delete_file($file)
     {
-        return $this->dropbox->delete($file);
+        return $this->bitcasa->delete($file);
     }
 
     public function create_directory($path)
     {
         try {
-            $this->dropbox->create($path);
+            $this->bitcasa->create($path);
         } catch (Exception $e) {}
     }
 
@@ -171,7 +171,7 @@ class WPB2D_DropboxFacade
         if (!isset($this->directory_cache[$path])) {
             try {
                 $this->directory_cache[$path] = array();
-                $response = $this->dropbox->metaData($path);
+                $response = $this->bitcasa->metaData($path);
 
                 foreach ($response['body']->contents as $val) {
                     if (!$val->is_dir) {
@@ -198,7 +198,7 @@ class WPB2D_DropboxFacade
 
     public static function remove_secret($file, $basename = true)
     {
-        if (preg_match('/-wpb2d-secret$/', $file))
+        if (preg_match('/-wpb2b-secret$/', $file))
             $file = substr($file, 0, strrpos($file, '.'));
 
         if ($basename)

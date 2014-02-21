@@ -18,7 +18,7 @@ catch (Exception $ex) {
 $a = $client->getAccessToken();
 if( !empty($a) ) {
 global $wpdb;
-$table_name_bitcasa = $wpdb->prefix . "wpb2d_options";
+$table_name_bitcasa = $wpdb->prefix . "wpb2b_options";
 $wpdb->query("INSERT INTO $table_name_bitcasa (name, value) VALUES('bitcasa_access_token','".$a."')");
  
 $re_dir = site_url( 'wp-admin/admin.php?page=backup-to-bitcasa' );
@@ -36,14 +36,14 @@ EOM;
  		 
  <?php
  
-$manager = WPB2D_Factory::get('extension-manager');
+$manager = BACKUP_Factory::get('extension-manager');
 
 if (isset($_REQUEST['error'])) {
-    add_settings_error('error', 'wpb2d_premium_error', sprintf(__('There was an error with your payment, please contact %s to resolve.', 'wpbtd'), '<a href="mailto:michael.dewildt@gmail.com">Mikey</a>'), 'error');
+    add_settings_error('error', 'wpb2b_premium_error', sprintf(__('There was an error with your payment, please contact %s to resolve.', 'wpbtd'), '<a href="mailto:michael.dewildt@gmail.com">Mikey</a>'), 'error');
 }
 
 if (isset($_REQUEST['title'])) {
-    add_settings_error('general', 'wpb2d_premium_success', sprintf(__('You have succesfully purchased %s.', 'wpbtd'), "<strong>{$_REQUEST['title']}</strong>"), 'updated');
+    add_settings_error('general', 'wpb2b_premium_success', sprintf(__('You have succesfully purchased %s.', 'wpbtd'), "<strong>{$_REQUEST['title']}</strong>"), 'updated');
 }
 
 if (isset($_POST['name'])) {
@@ -52,7 +52,7 @@ if (isset($_POST['name'])) {
         $slug = $manager->get_menu_slug($ext);
         $title = $ext->get_menu();
 
-        add_settings_error('general', 'wpb2d_premium_success', __('Installation successful. Please configure the extension from its menu item.', 'wpbtd'), 'updated');
+        add_settings_error('general', 'wpb2b_premium_success', __('Installation successful. Please configure the extension from its menu item.', 'wpbtd'), 'updated');
 
         ?><script type='text/javascript'>
             jQuery(document).ready(function ($) {
@@ -60,14 +60,14 @@ if (isset($_POST['name'])) {
             });
         </script><?php
     } catch (Exception $e) {
-        add_settings_error('error', 'wpb2d_premium_error', $e->getMessage(), 'error');
+        add_settings_error('error', 'wpb2b_premium_error', $e->getMessage(), 'error');
     }
 }
 
 try {
     $extensions = $manager->get_extensions();
 } catch (Exception $e) {
-    add_settings_error('error', 'wpb2d_premium_error', $e->getMessage(), 'error');
+    add_settings_error('error', 'wpb2b_premium_error', $e->getMessage(), 'error');
 }
 
  
@@ -77,7 +77,7 @@ try {
         $("#tabs").tabs();
     });
 </script>
-<div class="wrap premium" id="wpb2d">
+<div class="wrap premium" id="wpb2b">
      
     <h2><?php _e('WordPress Backup to Bitcasa', 'wpbtd'); ?></h2>
     <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_BITCASA_VERSION) ?></p>

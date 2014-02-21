@@ -18,7 +18,7 @@ delete_option('backup-to-bitcasa-in-progress');
 delete_option('backup-to-bitcasa-premium-extensions');
 delete_option('backup-to-bitcasa-processed-files');
 delete_option('backup-to-bitcasa-log');
-delete_option('wpb2d-init-errors');
+delete_option('wpb2b-init-errors');
 
 wp_clear_scheduled_hook('execute_periodic_bitcasa_backup');
 wp_clear_scheduled_hook('execute_instant_drobox_backup');
@@ -34,14 +34,14 @@ remove_action('wp_ajax_progress', 'backup_to_bitcasa_progress');
 
 global $wpdb;
 
-$table_name = $wpdb->prefix . 'wpb2d_options';
+$table_name = $wpdb->prefix . 'wpb2b_options';
 $wpdb->query("DROP TABLE IF EXISTS $table_name");
 
-$table_name = $wpdb->prefix . 'wpb2d_processed_files';
+$table_name = $wpdb->prefix . 'wpb2b_processed_files';
 $wpdb->query("DROP TABLE IF EXISTS $table_name");
 
-$table_name = $wpdb->prefix . 'wpb2d_excluded_files';
+$table_name = $wpdb->prefix . 'wpb2b_excluded_files';
 $wpdb->query("DROP TABLE IF EXISTS $table_name");
 
-$table_name = $wpdb->prefix . 'wpb2d_premium_extensions';
+$table_name = $wpdb->prefix . 'wpb2b_premium_extensions';
 $wpdb->query("DROP TABLE IF EXISTS $table_name");

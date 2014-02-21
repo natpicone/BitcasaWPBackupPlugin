@@ -13,11 +13,11 @@
 	<?php
 						
 				error_reporting(0);
-				$config = WPB2D_Factory::get('config');
-				$backup = new WPB2D_BackupController();
+				$config = BACKUP_Factory::get('config');
+				$backup = new BACKUP_BackupController();
 				///////////////////////////////////////////////Get Acces Token//////////////////////////// 
 				global $wpdb;
-				$table_name_bitcasa = $wpdb->prefix . "wpb2d_options";
+				$table_name_bitcasa = $wpdb->prefix . "wpb2b_options";
 				$sql = "SELECT * from $table_name_bitcasa where name='bitcasa_access_token'";
 				$query = $wpdb->get_results($sql);
 				///////////////////////////////////////////////And Get Acces Token////////////////////////////
@@ -26,7 +26,7 @@
 				$query_databasetable_name = $wpdb->get_results($alldatabase_table);
 				///////////////////////////////////////////////Code and////////////////////////////
 				///////////////////////////////////////////////Get all file and folder path////////////////////////////
-				$all_file_name = $wpdb->prefix . "wpb2d_excluded_files";
+				$all_file_name = $wpdb->prefix . "wpb2b_excluded_files";
 				$sql_all_filename = "SELECT * from $all_file_name ";
 				$query_all_file = $wpdb->get_results($sql_all_filename);
 				///////////////////////////////////////////////And code////////////////////////////
@@ -67,7 +67,7 @@
     	///////////////////////////////////////////////Stop Backup code////////////////////////////
 		check_admin_referer('backup_to_bitcasa_monitor_stop');
 		$backup->stop();
-		add_settings_error('wpb2d_monitor', 'backup_stopped', __('Backup stopped.', 'wpbtd'), 'updated');
+		add_settings_error('wpb2b_monitor', 'backup_stopped', __('Backup stopped.', 'wpbtd'), 'updated');
 			
 		///////////////////////////////////////////////Stop backup code and////////////////////////////	
 			
@@ -98,7 +98,7 @@
   if(!empty($bacup_path)) {
   
 				global $wpdb;
-				$table_name_bitcasa = $wpdb->prefix . "wpb2d_options";
+				$table_name_bitcasa = $wpdb->prefix . "wpb2b_options";
 				$wpdb->query("INSERT INTO $table_name_bitcasa (name, value) VALUES('".$date_new."','".$bacup_path."')");
 				$sql_last_bitcasa = "SELECT * from $table_name_bitcasa where name='last_bitcasa_time'";
 				$query_last_bitcasa = $wpdb->get_results($sql_last_bitcasa);
@@ -110,7 +110,7 @@
 				$wpdb->query("UPDATE $table_name_bitcasa SET value = $date_new WHERE name = 'last_bitcasa_time'");
 				}
   
-  						$table_name_bitcasa_exe = $wpdb->prefix . "wpb2d_excluded_files";
+  						$table_name_bitcasa_exe = $wpdb->prefix . "wpb2b_excluded_files";
 						$sql_exe = "SELECT * from $table_name_bitcasa_exe";
 						$query_exe = $wpdb->get_results($sql_exe);
 					 
@@ -283,7 +283,7 @@
     });
 </script>
 
-<div class="wrap" id="wpb2d">
+<div class="wrap" id="wpb2b">
    
   <h2>
     <?php _e('WordPress Backup to Bitcasa', 'wpbtd'); ?>

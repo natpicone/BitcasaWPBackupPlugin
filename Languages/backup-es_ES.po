@@ -2,8 +2,8 @@
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress Backup to Dropbox 0.8\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-backup-to-dropbox\n"
+"Project-Id-Version: WordPress Backup to bitcasa 0.8\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wordpress-backup-to-bitcasa\n"
 "POT-Creation-Date: 2011-06-02 23:56:09+00:00\n"
 "PO-Revision-Date: 2011-07-03 22:08+0100\n"
 "Last-Translator: Pablo César Galdo Regueiro <pcgaldo@gmail.com>\n"
@@ -18,13 +18,13 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: class-dropbox-facade.php:111
+#: class-bitcasa-facade.php:111
 msgid "backup file does not exist."
 msgstr "archivo de copia de seguridad no existe."
 
-#: class-dropbox-facade.php:128
-msgid "Error while uploading %s to Dropbox. HTTP Status: %s, Body: %s"
-msgstr "Error al subir %s a Dropbox. HTTP Status: %s, Body: %s"
+#: class-bitcasa-facade.php:128
+msgid "Error while uploading %s to bitcasa. HTTP Status: %s, Body: %s"
+msgstr "Error al subir %s a bitcasa. HTTP Status: %s, Body: %s"
 
 #: class-wp-backup.php:137
 msgid "Backup did not complete because the maximum script execution time was reached."
@@ -59,8 +59,8 @@ msgid "Invalid directory path. Path must only contain alphanumeric characters an
 msgstr "Ruta de directorio inválida. La ruta solo puede contener caracteres alfanuméricos y la barra ('/') para separar los directorios."
 
 #: class-wp-backup.php:428
-msgid "Your Dropbox account is not authorized yet."
-msgstr "Su cuenta de Dropbox todavía no está autorizada."
+msgid "Your bitcasa account is not authorized yet."
+msgstr "Su cuenta de bitcasa todavía no está autorizada."
 
 #: class-wp-backup.php:437
 msgid "Error while creating the local dump directory."
@@ -82,190 +82,190 @@ msgstr "Pulse %s para más información."
 msgid "here"
 msgstr "aquí"
 
-#: wp-backup-to-dropbox-options.php:36
+#: wp-backup-to-bitcasa-options.php:36
 msgid "Settings Saved."
 msgstr "Configuraciones guardadas."
 
-#: wp-backup-to-dropbox-options.php:41
+#: wp-backup-to-bitcasa-options.php:41
 msgid "Backup scheduled to begin now."
 msgstr "Copia de seguridad programada para comenzar ahora."
 
-#: wp-backup-to-dropbox-options.php:66
-#: wp-backup-to-dropbox-options.php:221
-#: wp-backup-to-dropbox-options.php:282
+#: wp-backup-to-bitcasa-options.php:66
+#: wp-backup-to-bitcasa-options.php:221
+#: wp-backup-to-bitcasa-options.php:282
 msgid "Daily"
 msgstr "Diariamente"
 
-#: wp-backup-to-dropbox-options.php:112
-msgid "WordPress Backup to Dropbox"
-msgstr "Copia de seguridad de WordPress en Dropbox"
+#: wp-backup-to-bitcasa-options.php:112
+msgid "WordPress Backup to bitcasa"
+msgstr "Copia de seguridad de WordPress en bitcasa"
 
-#: wp-backup-to-dropbox-options.php:113
+#: wp-backup-to-bitcasa-options.php:113
 msgid "Version %s"
 msgstr "Versión %s"
 
-#: wp-backup-to-dropbox-options.php:120
-msgid "Dropbox Account Details"
-msgstr "Detalles de la cuenta de Dropbox "
+#: wp-backup-to-bitcasa-options.php:120
+msgid "bitcasa Account Details"
+msgstr "Detalles de la cuenta de bitcasa "
 
-#: wp-backup-to-dropbox-options.php:126
+#: wp-backup-to-bitcasa-options.php:126
 msgid "Name"
 msgstr "Nombre"
 
-#: wp-backup-to-dropbox-options.php:130
+#: wp-backup-to-bitcasa-options.php:130
 msgid "Quota"
 msgstr "Cuota"
 
-#: wp-backup-to-dropbox-options.php:135
+#: wp-backup-to-bitcasa-options.php:135
 msgid "Next Scheduled"
 msgstr "Siguiente programación"
 
-#: wp-backup-to-dropbox-options.php:140
+#: wp-backup-to-bitcasa-options.php:140
 msgid "Next backup scheduled for %s at %s"
 msgstr "La siguiente copia de seguridad fue programada para el %s a las %s"
 
-#: wp-backup-to-dropbox-options.php:142
+#: wp-backup-to-bitcasa-options.php:142
 msgid "No backups are scheduled yet. Please select a day, time and frequency below. "
 msgstr "Todavía no fue programada ninguna copia de seguridad. Por favor, selecciona abajo el día, la hora y la frecuencia."
 
-#: wp-backup-to-dropbox-options.php:144
+#: wp-backup-to-bitcasa-options.php:144
 msgid "History"
 msgstr "Histórico"
 
-#: wp-backup-to-dropbox-options.php:155
+#: wp-backup-to-bitcasa-options.php:155
 msgid "Backup started on %s at %s"
 msgstr "Copia de seguridad iniciada el %s a las %s"
 
-#: wp-backup-to-dropbox-options.php:158
+#: wp-backup-to-bitcasa-options.php:158
 msgid "Backup completed on %s at %s"
 msgstr "Copia de seguridad completada el %s a las %s"
 
-#: wp-backup-to-dropbox-options.php:161
+#: wp-backup-to-bitcasa-options.php:161
 msgid "Backup warning on %s at %s: %s"
 msgstr "Aviso de copia de seguridad el %s a las %s: %s"
 
-#: wp-backup-to-dropbox-options.php:164
+#: wp-backup-to-bitcasa-options.php:164
 msgid "Backup error on %s at %s: %s"
 msgstr "Error de copia de seguridad el %s a las %s: %s"
 
-#: wp-backup-to-dropbox-options.php:169
+#: wp-backup-to-bitcasa-options.php:169
 msgid "No backups performed yet"
 msgstr "Todavía no se han realizado copias de seguridad."
 
-#: wp-backup-to-dropbox-options.php:172
+#: wp-backup-to-bitcasa-options.php:172
 msgid "Settings"
 msgstr "Configuración"
 
-#: wp-backup-to-dropbox-options.php:177
+#: wp-backup-to-bitcasa-options.php:177
 msgid "Locally store backup in this folder"
 msgstr "Guardar localmente la copia de seguridad en esta carpeta"
 
-#: wp-backup-to-dropbox-options.php:181
-#: wp-backup-to-dropbox-options.php:195
+#: wp-backup-to-bitcasa-options.php:181
+#: wp-backup-to-bitcasa-options.php:195
 msgid "Default is"
 msgstr "La predeterminada es"
 
-#: wp-backup-to-dropbox-options.php:190
-msgid "Store backup in this folder within Dropbox"
-msgstr "Guardar la copia de seguridad en esta carpeta de Dropbox"
+#: wp-backup-to-bitcasa-options.php:190
+msgid "Store backup in this folder within bitcasa"
+msgstr "Guardar la copia de seguridad en esta carpeta de bitcasa"
 
-#: wp-backup-to-dropbox-options.php:203
+#: wp-backup-to-bitcasa-options.php:203
 msgid "Day and Time"
 msgstr "Día y hora"
 
-#: wp-backup-to-dropbox-options.php:207
+#: wp-backup-to-bitcasa-options.php:207
 msgid "Monday"
 msgstr "Lunes"
 
-#: wp-backup-to-dropbox-options.php:209
+#: wp-backup-to-bitcasa-options.php:209
 msgid "Tuesday"
 msgstr "Martes"
 
-#: wp-backup-to-dropbox-options.php:211
+#: wp-backup-to-bitcasa-options.php:211
 msgid "Wednesday"
 msgstr "Miércoles"
 
-#: wp-backup-to-dropbox-options.php:213
+#: wp-backup-to-bitcasa-options.php:213
 msgid "Thursday"
 msgstr "Jueves"
 
-#: wp-backup-to-dropbox-options.php:215
+#: wp-backup-to-bitcasa-options.php:215
 msgid "Friday"
 msgstr "Viernes"
 
-#: wp-backup-to-dropbox-options.php:217
+#: wp-backup-to-bitcasa-options.php:217
 msgid "Saturday"
 msgstr "Sábado"
 
-#: wp-backup-to-dropbox-options.php:219
+#: wp-backup-to-bitcasa-options.php:219
 msgid "Sunday"
 msgstr "Domingo"
 
-#: wp-backup-to-dropbox-options.php:274
-msgid "The day and time the backup to Dropbox is to be performed."
-msgstr "El día y hora en los que la copia de seguridad en Dropbox tendrá que ser realizada."
+#: wp-backup-to-bitcasa-options.php:274
+msgid "The day and time the backup to bitcasa is to be performed."
+msgstr "El día y hora en los que la copia de seguridad en bitcasa tendrá que ser realizada."
 
-#: wp-backup-to-dropbox-options.php:278
+#: wp-backup-to-bitcasa-options.php:278
 msgid "Frequency"
 msgstr "Frecuencia"
 
-#: wp-backup-to-dropbox-options.php:285
+#: wp-backup-to-bitcasa-options.php:285
 msgid "Weekly"
 msgstr "Semanalmente"
 
-#: wp-backup-to-dropbox-options.php:289
+#: wp-backup-to-bitcasa-options.php:289
 msgid "Fortnightly"
 msgstr "Quincenalmente"
 
-#: wp-backup-to-dropbox-options.php:292
+#: wp-backup-to-bitcasa-options.php:292
 msgid "Every 4 weeks"
 msgstr "Cada 4 semanas"
 
-#: wp-backup-to-dropbox-options.php:296
+#: wp-backup-to-bitcasa-options.php:296
 msgid "Every 8 weeks"
 msgstr "Cada 8 semanas"
 
-#: wp-backup-to-dropbox-options.php:300
+#: wp-backup-to-bitcasa-options.php:300
 msgid "Every 12 weeks"
 msgstr "Cada 12 semanas"
 
-#: wp-backup-to-dropbox-options.php:303
-msgid "How often the backup to Dropbox is to be performed."
-msgstr "Frecuencia con la que la copia de seguridad en Dropbox debe ser realizada."
+#: wp-backup-to-bitcasa-options.php:303
+msgid "How often the backup to bitcasa is to be performed."
+msgstr "Frecuencia con la que la copia de seguridad en bitcasa debe ser realizada."
 
-#: wp-backup-to-dropbox-options.php:310
+#: wp-backup-to-bitcasa-options.php:310
 msgid "Save Changes"
 msgstr "Guardar los cambios"
 
-#: wp-backup-to-dropbox-options.php:312
+#: wp-backup-to-bitcasa-options.php:312
 msgid "Backup Now"
 msgstr "Hacer la copia de seguridad ahora"
 
-#: wp-backup-to-dropbox-options.php:330
-msgid "Thank you for installing WordPress Backup to Dropbox!"
-msgstr "Gracias por instalar la Copia de seguridad de WordPress en Dropbox"
+#: wp-backup-to-bitcasa-options.php:330
+msgid "Thank you for installing WordPress Backup to bitcasa!"
+msgstr "Gracias por instalar la Copia de seguridad de WordPress en bitcasa"
 
-#: wp-backup-to-dropbox-options.php:331
-msgid "In order to use this plugin you will need to authorized it with your Dropbox account."
-msgstr "Para poder usar este plugin necesitarás autorizarlo en tu cuenta de Dropbox."
+#: wp-backup-to-bitcasa-options.php:331
+msgid "In order to use this plugin you will need to authorized it with your bitcasa account."
+msgstr "Para poder usar este plugin necesitarás autorizarlo en tu cuenta de bitcasa."
 
-#: wp-backup-to-dropbox-options.php:332
+#: wp-backup-to-bitcasa-options.php:332
 msgid "Please click the authorize button below and follow the instructions inside the pop up window."
 msgstr "Por favor, pulsa el botón de autorización de abajo y sigue las instrucciones de la ventana emergente."
 
-#: wp-backup-to-dropbox-options.php:334
-msgid "There was an error authorizing the plugin with your Dropbox account. Please try again."
-msgstr "Ha habido un error al autorizar el plugin en tu cuenta de Dropbox. Por favor, inténtalo de nuevo."
+#: wp-backup-to-bitcasa-options.php:334
+msgid "There was an error authorizing the plugin with your bitcasa account. Please try again."
+msgstr "Ha habido un error al autorizar el plugin en tu cuenta de bitcasa. Por favor, inténtalo de nuevo."
 
-#: wp-backup-to-dropbox-options.php:342
+#: wp-backup-to-bitcasa-options.php:342
 msgid "Continue"
 msgstr "Continuar"
 
-#: wp-backup-to-dropbox-options.php:349
-msgid "There was a fatal error loading WordPress Backup to Dropbox"
-msgstr "Ha habido un error fatal al cargar Copia de seguridad de WordPress en Dropbox"
+#: wp-backup-to-bitcasa-options.php:349
+msgid "There was a fatal error loading WordPress Backup to bitcasa"
+msgstr "Ha habido un error fatal al cargar Copia de seguridad de WordPress en bitcasa"
 
-#: wp-backup-to-dropbox.php:70
+#: wp-backup-to-bitcasa.php:70
 msgid "The backup process appears to have gone away. Resuming backup."
 msgstr "El proceso de copia de seguridad  parece tener un problema. Reiniciando la copia de seguridad. "
 

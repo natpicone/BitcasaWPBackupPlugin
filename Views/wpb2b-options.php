@@ -1,31 +1,31 @@
 <?php
 error_reporting(0);
 try {
-    if ($errors = get_option('wpb2d-init-errors')) {
-        delete_option('wpb2d-init-errors');
+    if ($errors = get_option('wpb2b-init-errors')) {
+        delete_option('wpb2b-init-errors');
         throw new Exception(__('WordPress Backup to Bitcasa failed to initialize due to these database errors.', 'wpbtd') . '<br /><br />' . $errors);
     }
 
     $validation_errors = null;
 
-    $bitcasa = WPB2D_Factory::get('bitcasa');
-    $config = WPB2D_Factory::get('config');
+    $bitcasa = BACKUP_Factory::get('bitcasa');
+    $config = BACKUP_Factory::get('config');
 
-    $backup = new WPB2D_BackupController();
+    $backup = new BACKUP_BackupController();
 
     $backup->create_dump_dir();
 
     $disable_backup_now = $config->get_option('in_progress');
 
     //We have a form submit so update the schedule and options
-    if (array_key_exists('wpb2d_save_changes', $_POST)) {
+    if (array_key_exists('wpb2b_save_changes', $_POST)) {
 	
 	  
 	
         check_admin_referer('backup_to_bitcasa_options_save');
 
         if (preg_match('/[^A-Za-z0-9-_.\/]/', $_POST['bitcasa_location'])) {
-            add_settings_error('wpb2d_options', 'invalid_subfolder', __('The sub directory must only contain alphanumeric characters.', 'wpbtd'), 'error');
+            add_settings_error('wpb2b_options', 'invalid_subfolder', __('The sub directory must only contain alphanumeric characters.', 'wpbtd'), 'error');
 
             $bitcasa_location = $_POST['bitcasa_location'];
             $store_in_subfolder = true;
@@ -40,7 +40,7 @@ try {
     } elseif (array_key_exists('unlink', $_POST)) {
  		 
 	        global $wpdb;
-			$table_name_bitcasa = $wpdb->prefix . "wpb2d_options";
+			$table_name_bitcasa = $wpdb->prefix . "wpb2b_options";
 			$sql = "DELETE FROM $table_name_bitcasa WHERE name='bitcasa_access_token'";
 			$query = $wpdb->query($sql);
 			 
@@ -66,7 +66,7 @@ try {
         $frequency = 'weekly';
     }
 
-    if (!get_settings_errors('wpb2d_options')) {
+    if (!get_settings_errors('wpb2b_options')) {
         $bitcasa_location = $config->get_option('bitcasa_location');
         $store_in_subfolder = $config->get_option('store_in_subfolder');
     }
@@ -151,7 +151,7 @@ try {
         document.getElementById('authorize').style.visibility = 'hidden';
     }
 </script>
-    <div class="wrap" id="wpb2d">
+    <div class="wrap" id="wpb2b">
      
 <h2><?php _e('WordPress Backup to Bitcasa', 'wpbtd'); ?></h2>
 <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_BITCASA_VERSION) ?></p>
@@ -159,7 +159,7 @@ try {
     <?php settings_errors(); ?>
 <?php
 global $wpdb;
-$table_name_bitcasa = $wpdb->prefix . "wpb2d_options";
+$table_name_bitcasa = $wpdb->prefix . "wpb2b_options";
 $sql = "SELECT * from $table_name_bitcasa where name='bitcasa_access_token'";
 $query = $wpdb->get_results($sql);
 
@@ -375,7 +375,7 @@ $bitcasa_access_token=$query[0]->value;
     </div>
     <!--<![endif]-->
     <p class="submit">
-        <input type="submit" id="wpb2d_save_changes" name="wpb2d_save_changes" class="button-primary" value="<?php _e('Save Changes', 'wpbtd'); ?>">
+        <input type="submit" id="wpb2b_save_changes" name="wpb2b_save_changes" class="button-primary" value="<?php _e('Save Changes', 'wpbtd'); ?>">
     </p>
         <?php wp_nonce_field('backup_to_bitcasa_options_save'); ?>
     </form>

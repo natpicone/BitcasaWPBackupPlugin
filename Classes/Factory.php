@@ -1,5 +1,5 @@
 <?php
-class WPB2D_Factory
+class BACKUP_Factory
 {
     private static
         $objectCache = array(),
@@ -18,7 +18,7 @@ class WPB2D_Factory
             $class .= '_' . ucfirst($bit);
         }
 
-        return 'WPB2D' . $class;
+        return 'BACKUP' . $class;
     }
 
     public static function db()
@@ -30,7 +30,7 @@ class WPB2D_Factory
                 $wpdb->hide_errors();
             }
 
-            if (defined('WPB2D_TEST_MODE')) {
+            if (defined('BACKUP_TEST_MODE')) {
                 $wpdb->show_errors();
             }
 
@@ -71,6 +71,6 @@ class WPB2D_Factory
 
     public static function secret($data)
     {
-        return hash_hmac('sha1', $data, uniqid(mt_rand(), true)) . '-wpb2d-secret';
+        return hash_hmac('sha1', $data, uniqid(mt_rand(), true)) . '-wpb2b-secret';
     }
 }

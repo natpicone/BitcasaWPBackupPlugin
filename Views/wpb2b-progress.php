@@ -1,10 +1,10 @@
 <?php
-$config = WPB2D_Factory::get('config');
+$config = BACKUP_Factory::get('config');
 
 if (!$config->get_option('in_progress'))
     spawn_cron();
 
-$log = WPB2D_Factory::get('logger')->get_log();
+$log = BACKUP_Factory::get('logger')->get_log();
 
 if (empty($log)): ?>
     <p><?php _e('You have not run a backup yet. When you do you will see a log of it here.'); ?></p>

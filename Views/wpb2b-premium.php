@@ -1,11 +1,11 @@
 <?php
-$manager = WPB2D_Factory::get('extension-manager');
+$manager = BACKUP_Factory::get('extension-manager');
 if (isset($_REQUEST['error'])) {
-    add_settings_error('error', 'wpb2d_premium_error', sprintf(__('There was an error with your payment, please contact %s to resolve.', 'wpbtd'), '<a href="asish.mathur@dotsquares.com">Ashish</a>'), 'error');
+    add_settings_error('error', 'wpb2b_premium_error', sprintf(__('There was an error with your payment, please contact %s to resolve.', 'wpbtd'), '<a href="asish.mathur@dotsquares.com">Ashish</a>'), 'error');
 }
 
 if (isset($_REQUEST['title'])) {
-    add_settings_error('general', 'wpb2d_premium_success', sprintf(__('You have succesfully purchased %s.', 'wpbtd'), "<strong>{$_REQUEST['title']}</strong>"), 'updated');
+    add_settings_error('general', 'wpb2b_premium_success', sprintf(__('You have succesfully purchased %s.', 'wpbtd'), "<strong>{$_REQUEST['title']}</strong>"), 'updated');
 }
 
 if (isset($_POST['name'])) {
@@ -14,7 +14,7 @@ if (isset($_POST['name'])) {
         $slug = $manager->get_menu_slug($ext);
         $title = $ext->get_menu();
 
-        add_settings_error('general', 'wpb2d_premium_success', __('Installation successful. Please configure the extension from its menu item.', 'wpbtd'), 'updated');
+        add_settings_error('general', 'wpb2b_premium_success', __('Installation successful. Please configure the extension from its menu item.', 'wpbtd'), 'updated');
 
         ?><script type='text/javascript'>
             jQuery(document).ready(function ($) {
@@ -22,17 +22,17 @@ if (isset($_POST['name'])) {
             });
         </script><?php
     } catch (Exception $e) {
-        add_settings_error('error', 'wpb2d_premium_error', $e->getMessage(), 'error');
+        add_settings_error('error', 'wpb2b_premium_error', $e->getMessage(), 'error');
     }
 }
 
 try {
     $extensions = $manager->get_extensions();
 } catch (Exception $e) {
-    add_settings_error('error', 'wpb2d_premium_error', $e->getMessage(), 'error');
+    add_settings_error('error', 'wpb2b_premium_error', $e->getMessage(), 'error');
 }
 
-function wpb2d_products($manager, $type, $extensions)
+function wpb2b_products($manager, $type, $extensions)
 {
     $installUrl = $manager->get_install_url();
     $buyUrl = $manager->get_buy_url();
@@ -63,7 +63,7 @@ function wpb2d_products($manager, $type, $extensions)
             <?php else: ?>
                 <div class="product-box__button">
                     <form action="<?php echo is_int($extension['expiry']) ? $installUrl : $buyUrl ?>" method="post" id="extension-<?php echo esc_attr($extension['name']) ?>">
-                        <input type="hidden" value="<?php echo WPB2D_Extension_Manager::API_KEY ?>" name="apikey" />
+                        <input type="hidden" value="<?php echo BACKUP_Extension_Manager::API_KEY ?>" name="apikey" />
                         <input type="hidden" value="<?php echo esc_attr($extension['name']) ?>" name="name" />
                         <input type="hidden" value="<?php echo get_site_url() ?>" name="site" />
                         <input class="button-primary" type="submit" value="<?php echo is_int($extension['expiry']) ? __('Install Now') : __('Buy Now') ?>" class="submitBtn" />
@@ -86,7 +86,7 @@ function wpb2d_products($manager, $type, $extensions)
         $("#tabs").tabs();
     });
 </script>
-<div class="wrap premium" id="wpb2d">
+<div class="wrap premium" id="wpb2b">
      
     <h2><?php _e('WordPress Backup to Bitcasa', 'wpbtd'); ?></h2>
     <p class="description"><?php printf(__('Version %s', 'wpbtd'), BACKUP_TO_BITCASA_VERSION) ?></p>
@@ -120,7 +120,7 @@ function wpb2d_products($manager, $type, $extensions)
             <li><a href="#multi-site-tab">Multiple sites</a></li>
         </ul>
         <div id="single-site-tab">
-            <?php wpb2d_products($manager, array('single', 'bundle'), $extensions); ?>
+            <?php wpb2b_products($manager, array('single', 'bundle'), $extensions); ?>
             <p class="note_paragraph">
                 <strong><?php _e('Please Note:') ?></strong>&nbsp;
                 <?php echo sprintf(__('Each payment includes updates and support on a single website for one year.', 'wpbtd')) ?>
@@ -135,7 +135,7 @@ function wpb2d_products($manager, $type, $extensions)
                     Each plan includes updates and support for one year and you can update your limit at any time.
                 ', 'wpbtd')); ?>
             </p>
-            <?php wpb2d_products($manager, array('multi'), $extensions); ?>
+            <?php wpb2b_products($manager, array('multi'), $extensions); ?>
         </div>
     </div>
 </div>

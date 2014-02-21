@@ -1,5 +1,5 @@
 <?php
-class WPB2D_Config
+class BACKUP_Config
 {
     const MAX_HISTORY_ITEMS = 20;
 
@@ -10,7 +10,7 @@ class WPB2D_Config
 
     public function __construct()
     {
-        $this->db = WPB2D_Factory::db();
+        $this->db = BACKUP_Factory::db();
     }
 
     public static function get_backup_dir()
@@ -26,17 +26,17 @@ class WPB2D_Config
         }
 
         $exists = $this->db->get_var(
-            $this->db->prepare("SELECT * FROM {$this->db->prefix}wpb2d_options WHERE name = %s", $name)
+            $this->db->prepare("SELECT * FROM {$this->db->prefix}wpb2b_options WHERE name = %s", $name)
         );
 
         if (is_null($exists)) {
-            $this->db->insert($this->db->prefix . "wpb2d_options", array(
+            $this->db->insert($this->db->prefix . "wpb2b_options", array(
                 'name' => $name,
                 'value' => $value,
             ));
         } else {
             $this->db->update(
-                $this->db->prefix . 'wpb2d_options',
+                $this->db->prefix . 'wpb2b_options',
                 array('value' => $value),
                 array('name' => $name)
             );
@@ -51,7 +51,7 @@ class WPB2D_Config
     {
         if (!isset($this->options[$name]) || $no_cache) {
             $this->options[$name] = $this->db->get_var(
-                $this->db->prepare("SELECT value FROM {$this->db->prefix}wpb2d_options WHERE name = %s", $name)
+                $this->db->prepare("SELECT value FROM {$this->db->prefix}wpb2b_options WHERE name = %s", $name)
             );
         }
 
@@ -144,7 +144,7 @@ class WPB2D_Config
     {
         $bitcasa_location = null;
         if ($this->get_option('store_in_subfolder')){
-            $bitcasa_location = $this->get_option('dropbox_location');
+            $bitcasa_location = $this->get_option('bitcasa_location');
         }
 
         if ($root){
@@ -176,10 +176,10 @@ class WPB2D_Config
         wp_clear_scheduled_hook('run_bitcasa_backup_hook');
         wp_clear_scheduled_hook('execute_instant_drobox_backup');
 
-        $processed = new WPB2D_Processed_Files();
+        $processed = new BACKUP_Processed_Files();
         $processed->truncate();
 
-        $processed = new WPB2D_Processed_DBTables();
+        $processed = new BACKUP_Processed_DBTables();
         $processed->truncate();
 
         $this->set_option('in_progress', false);
@@ -191,10 +191,10 @@ class WPB2D_Config
 
     public function die_if_stopped()
     {
-        $in_progress = $this->db->get_var("SELECT value FROM {$this->db->prefix}wpb2d_options WHERE name = 'in_progress'");
+        $in_progress = $this->db->get_var("SELECT value FROM {$this->db->prefix}wpb2b_options WHERE name = 'in_progress'");
         if (!$in_progress) {
             $msg = __('Backup stopped by user.', 'wpbtd');
-            WPB2D_Factory::get('logger')->log($msg);
+            BACKUP_Factory::get('logger')->log($msg);
             die($msg);
         }
     }
