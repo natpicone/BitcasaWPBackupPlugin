@@ -395,7 +395,7 @@ $bitcasa_access_token=$query[0]->value;
   
 	 
 	 <div class="new_class_a">
-<a style="color:#FFFFFF;text-decoration:none;" href="https://developer.api.bitcasa.com/v1/oauth2/authenticate?client_id=<?php echo OAUTH_CLIENTID; ?>&redirect=http:// <?php echo $_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF']; ?>?page=backup-to-bitcasa-monitor/" target="_blank" > Authorize</a>
+<a style="color:#FFFFFF;text-decoration:none;" href="https://developer.api.bitcasa.com/v1/oauth2/authenticate?client_id=<?php echo OAUTH_CLIENTID; ?>&redirect=http://<?php echo $_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF']; ?>?page=backup-to-bitcasa-monitor/" target="_blank" > Authorize</a>
 	 </div>
  
         <?php
